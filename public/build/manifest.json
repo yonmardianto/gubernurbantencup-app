@@ -1,0 +1,36 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-DMdjTeUL.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/css/frontend.css": {
+    "file": "assets/frontend-DHSMGVuz.css",
+    "src": "resources/css/frontend.css",
+    "isEntry": true
+  },
+  "resources/js/admin/login.js": {
+    "file": "assets/login-DEJbyvQC.js",
+    "name": "login",
+    "src": "resources/js/admin/login.js",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-CAkSn3BF.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/js/frontend/jquerymask.js": {
+    "file": "assets/jquerymask-C4BgK-Ug.js",
+    "name": "jquerymask",
+    "src": "resources/js/frontend/jquerymask.js",
+    "isEntry": true
+  },
+  "resources/js/frontend/registrasi.js": {
+    "file": "assets/registrasi-DAC4SGzo.js",
+    "name": "registrasi",
+    "src": "resources/js/frontend/registrasi.js",
+    "isEntry": true
+  }
+}
