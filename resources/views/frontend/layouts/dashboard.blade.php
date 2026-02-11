@@ -7,7 +7,7 @@
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <title>
         @section('title')
-            | Kajati Cup Banten 2025
+            | Gubernur Banten Cup 2026
         @show
     </title>
 
