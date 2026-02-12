@@ -173,7 +173,7 @@
                             placeholder="Masukkan nama club Anda">
                     </div>
                     <div class="form-group">
-                        <label for="modal-password" class="required">Password</label>
+                        <label for="modal-signup-password" class="required">Password</label>
                         <div class="password-wrapper">
                             <input type="password" id="modal-signup-password" name="password"
                                 placeholder="Masukkan password Anda" required>
@@ -184,13 +184,13 @@
 
                     </div>
                     <div class="form-group">
-                        <label for="modal-confirm-password" class="required">Confirm Password</label>
+                        <label for="modal-signup-confirm-password" class="required">Confirm Password</label>
                         <div class="password-wrapper">
-                            <input type="password" id="modal-confirm-password" name="password_confirmation"
+                            <input type="password" id="modal-signup-confirm-password" name="password_confirmation"
                                 placeholder="Konfirmasi password Anda" required>
 
-                            <span class="toggle-password" onclick="toggleVisibility('modal-confirm-password')"><i
-                                    class="fas fa-eye"></i></span>
+                            <span class="toggle-password" id="signUpShowHideConfirmPassword"><i class="fas fa-eye"
+                                    id="iconSignUpConfirmPassword"></i></span>
                         </div>
 
                     </div>
@@ -271,6 +271,21 @@
                 } else {
                     passwordInput.attr("type", "password");
                     iconSignUpPassword.removeClass("fa-eye-slash").addClass("fa-eye");
+                }
+            });
+
+
+            $("#signUpShowHideConfirmPassword").on("click", function(event) {
+                event.preventDefault();
+                const passwordInput = $("#modal-signup-confirm-password");
+                const iconSignUpConfirmPassword = $("#iconSignUpConfirmPassword");
+
+                if (passwordInput.attr("type") === "password") {
+                    passwordInput.attr("type", "text");
+                    iconSignUpConfirmPassword.removeClass("fa-eye").addClass("fa-eye-slash");
+                } else {
+                    passwordInput.attr("type", "password");
+                    iconSignUpConfirmPassword.removeClass("fa-eye-slash").addClass("fa-eye");
                 }
             });
 
