@@ -130,11 +130,10 @@
                             <input type="password" id="modal-login-password" name="password"
                                 placeholder="Masukkan password Anda" required>
 
-                            <span class="toggle-password" onclick="toggleVisibility('modal-login-password')"><i
-                                    class="fas fa-eye"></i></span>
+                            <span class="toggle-password" id="loginShowHidePassword"><i class="fas fa-eye"
+                                    id="iconLoginPassword"></i>
+
                         </div>
-
-
                     </div>
                     <button type="submit" class="login-btn" id="login-button">Login</button>
                 </form>
@@ -176,11 +175,11 @@
                     <div class="form-group">
                         <label for="modal-password" class="required">Password</label>
                         <div class="password-wrapper">
-                            <input type="password" id="modal-password" name="password"
+                            <input type="password" id="modal-signup-password" name="password"
                                 placeholder="Masukkan password Anda" required>
 
-                            <span class="toggle-password" onclick="toggleVisibility('modal-password')"><i
-                                    class="fas fa-eye"></i></span>
+                            <span class="toggle-password" id="signUpShowHidePassword"><i class="fas fa-eye"
+                                    id="iconSignUpPassword"></i></span>
                         </div>
 
                     </div>
@@ -207,12 +206,12 @@
             <h2>Kontak Kami</h2>
             <p>Punya pertanyaan? Hubungi kami melalui WhatsApp atau Email</p>
             <div class="contact-grid">
-                <a href="https://wa.me/6287890123456" target="_blank" class="contact-card whatsapp">
+                <a href="https://wa.me/6285692887399" target="_blank" class="contact-card whatsapp">
                     <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
                     <h3>WhatsApp</h3>
                     <!-- <p>+62 878-9012-3456</p> -->
                 </a>
-                <a href="mailto:info@gubernurbantencup.com" class="contact-card email">
+                <a href="mailto:gubernurbantencup@gmail.com" class="contact-card email">
                     <div class="contact-icon"><i class="fas fa-envelope"></i></div>
                     <h3>Email</h3>
                     <!-- <p>info@gubernurbantencup.com</p> -->
@@ -226,31 +225,71 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 
     <script type="text/javascript">
-        function toggleVisibility(inputId) {
-            const inputField = document.getElementById(inputId);
-            const eyeIcon = inputField.nextElementSibling.querySelector('i');
-            if (inputField.type === "password") {
-                inputField.type = "text";
-                if (eyeIcon) {
-                    eyeIcon.className = "fas fa-eye-slash";
-                }
-            } else {
-                inputField.type = "password";
-                if (eyeIcon) {
-                    eyeIcon.className = "fas fa-eye";
-                }
-            }
-        }
-
         document.addEventListener('DOMContentLoaded', function() {
 
             var btn = document.querySelector('.nav-toggle');
             var menu = document.querySelector('.nav-menu');
             var locationBox = document.querySelector('.onlink-to');
 
-            if ($('#no_hp').length > 0) {
-                $('#no_hp').mask('62800000000000');
+            // Modal: open signup modal when clicking links or open buttons
+            var modalSignup = document.getElementById('signup-modal');
+            var modalLogin = document.getElementById('login-modal');
 
+            var openSignup = document.querySelectorAll('a[href="#signup-new-section"], .open-signup');
+            var closeSignup = document.querySelectorAll('.modal-close, .modal-overlay');
+
+            var formLogin = document.getElementById('formLogin');
+            var formSignup = document.getElementById('formSignup');
+
+
+            var openLogin = document.querySelectorAll('a[href="#login-section"], .open-login');
+            var closeLogin = document.querySelectorAll('.modal-close, .modal-overlay');
+
+
+            $("#loginShowHidePassword").on("click", function(event) {
+                event.preventDefault();
+                const passwordInput = $("#modal-login-password");
+                const iconLoginPassword = $("#iconLoginPassword");
+
+                if (passwordInput.attr("type") === "password") {
+                    passwordInput.attr("type", "text");
+                    iconLoginPassword.removeClass("fa-eye").addClass("fa-eye-slash");
+                } else {
+                    passwordInput.attr("type", "password");
+                    iconLoginPassword.removeClass("fa-eye-slash").addClass("fa-eye");
+                }
+            });
+
+            $("#signUpShowHidePassword").on("click", function(event) {
+                event.preventDefault();
+                const passwordInput = $("#modal-signup-password");
+                const iconSignUpPassword = $("#iconSignUpPassword");
+
+                if (passwordInput.attr("type") === "password") {
+                    passwordInput.attr("type", "text");
+                    iconSignUpPassword.removeClass("fa-eye").addClass("fa-eye-slash");
+                } else {
+                    passwordInput.attr("type", "password");
+                    iconSignUpPassword.removeClass("fa-eye-slash").addClass("fa-eye");
+                }
+            });
+
+
+
+            if ($('#no_hp').length > 0) {
+                $('#no_hp').mask('62890000000000', {
+                    translation: {
+                        '9': {
+                            pattern: /[1-9]/
+                        }
+                    },
+                    onKeyPress: function(value, event, currentValue, selection) {
+                        if (currentValue === '628' && event.key === '0') {
+                            event.preventDefault();
+                            return false;
+                        }
+                    }
+                });
             }
 
             if (locationBox) {
@@ -265,12 +304,6 @@
                 });
             }
 
-            // Modal: open signup modal when clicking links or open buttons
-            var modalSignup = document.getElementById('signup-modal');
-            var modalLogin = document.getElementById('login-modal');
-
-            var openSignup = document.querySelectorAll('a[href="#signup-new-section"], .open-signup');
-            var closeSignup = document.querySelectorAll('.modal-close, .modal-overlay');
 
             function openSignupModal(e) {
                 if (e) e.preventDefault();
@@ -285,6 +318,7 @@
                 modalSignup.classList.remove('open');
                 modalSignup.setAttribute('aria-hidden', 'true');
                 document.body.style.overflow = '';
+                formSignup.reset();
             }
 
             openSignup.forEach(function(el) {
@@ -295,8 +329,7 @@
             });
 
 
-            var openLogin = document.querySelectorAll('a[href="#login-section"], .open-login');
-            var closeLogin = document.querySelectorAll('.modal-close, .modal-overlay');
+
 
 
             function openLoginModal(e) {
@@ -312,6 +345,8 @@
                 modalLogin.classList.remove('open');
                 modalLogin.setAttribute('aria-hidden', 'true');
                 document.body.style.overflow = '';
+
+                formLogin.reset();
             }
 
 
@@ -332,7 +367,6 @@
 
 
             //Form Login AJAX Submission
-            var formLogin = document.getElementById('formLogin');
             formLogin.addEventListener('submit', function(e) {
 
                 e.preventDefault();
@@ -399,7 +433,6 @@
             });
 
             //Form signup AJAX Submission
-            var formSignup = document.getElementById('formSignup');
             formSignup.addEventListener('submit', function(e) {
                 e.preventDefault();
 

@@ -14,10 +14,10 @@ class SettingSeeder extends Seeder
     public function run(): void
     {
         Setting::create([
-            'key'=> 'lock application',
-            'value'=> '1',
-            'tipe'=> 'checkbox',
-            'created_at'=> date('Y-m-d H:i:s')
+            'key' => 'lock application',
+            'value' => '0',
+            'tipe' => 'checkbox',
+            'created_at' => date('Y-m-d H:i:s')
         ]);
     }
 }

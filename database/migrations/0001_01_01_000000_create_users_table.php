@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->enum('role', ['student', 'instructor']);
+            $table->enum('role', ['manager-team', 'user']);
             $table->string('name');
             $table->string('email')->unique();
             $table->string('image')->default('default-files/avatar.png');
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('linkedin')->nullable();
             $table->string('website')->nullable();
             $table->string('github')->nullable();
-            $table->enum('login_as', ['student', 'instructor'])->nullable();
+            $table->enum('login_as', ['manager-team', 'user'])->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('approve_status', ['pending', 'approved', 'rejected']);
