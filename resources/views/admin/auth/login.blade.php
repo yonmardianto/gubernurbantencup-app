@@ -11,6 +11,7 @@
     {{-- <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}"> --}}
     <link href="{{ asset('admin/assets/dist/css/tabler.min.css?1692870487') }}" rel="stylesheet" />
     <link href="{{ asset('admin/assets/dist/css/demo.min.css?1692870487') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://rsms.me/inter/inter.css');
 
@@ -20,26 +21,28 @@
 
         body {
             font-feature-settings: "cv03", "cv04", "cv11";
-            background-color: lightgray;
+            background-color: #1e3c72;
         }
     </style>
     {{-- @vite(['resources/js/admin/login.js']) --}}
 </head>
 
 <body class=" d-flex flex-column">
-    <script src="{{ asset('admin/assets/dist/js/demo-theme.min.js?1692870487') }}"></script>
+    {{-- <script src="{{ asset('admin/assets/dist/js/demo-theme.min.js?1692870487') }}"></script> --}}
     <div class="page page-center">
         <div class="container container-tight py-4">
 
             <div class="card card-md">
                 <div class="card-body">
-                    <h2 class="h2 text-center mb-4">Admin Login <br/><span style="color: rgb(72, 14, 0)">Kajati Banten Cup 2025</span></h2>
-                    <form action="{{route('admin.login')}}" method="post" autocomplete="off" novalidate>
+                    <h2 class="h2 text-center mb-4">Admin Login <br /><span style="color: rgb(11, 11, 12)">Gubernur
+                            Banten Cup 2026</span></h2>
+                    <form action="{{ route('admin.login') }}" method="post" autocomplete="off" novalidate>
                         @csrf
-                         <!-- Email Address -->
+                        <!-- Email Address -->
                         <div class="mb-3">
                             <label class="form-label">Email address</label>
-                            <input type="email" name="email" class="form-control" value="{{ old('email') }}" placeholder="your@email.com" autocomplete="off" required>
+                            <input type="email" name="email" class="form-control" value="{{ old('email') }}"
+                                placeholder="your@email.com" autocomplete="off" required>
 
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                         </div>
@@ -53,8 +56,8 @@
                                 </span> --}}
                             </label>
                             <div class="input-group input-group-flat">
-                                <input type="password" name="password" class="form-control password" placeholder="Your password"
-                                    autocomplete="off" required>
+                                <input type="password" name="password" class="form-control password"
+                                    placeholder="Your password" autocomplete="off" required>
                                 <span class="input-group-text toggle-password">
                                     <a href="javascript:;" class="link-secondary" title="Show password"
                                         data-bs-toggle="tooltip"><!-- Download SVG icon from http://tabler-icons.io/i/eye -->
@@ -72,7 +75,7 @@
                             <x-input-error :messages="$errors->get('password')" class="mt-2" />
                         </div>
 
-                         <!-- Remember Me -->
+                        <!-- Remember Me -->
                         {{-- <div class="mb-2">
                             <label class="form-check">
                                 <input type="checkbox" class="form-check-input" name="remember" />
@@ -81,7 +84,8 @@
                         </div> --}}
 
                         <div class="form-footer">
-                            <button type="submit" class="btn btn-success w-100"><i class="fas fa-sign-in-alt"></i> Login </button>
+                            <button type="submit" class="btn btn-info w-100"> <i class="fas fa-sign-in-alt"></i> Login
+                            </button>
                         </div>
                     </form>
                 </div>
