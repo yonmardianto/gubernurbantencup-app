@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('participants', function (Blueprint $table) {
             $table->id();
             $table->string('nama_lengkap');
+            $table->date('tgl_lahir')->nullable();
             $table->enum('gender', ['Putra', 'Putri']);
             $table->string('club');
             $table->enum('kategori', ['Pemula', 'Prestasi']);
@@ -24,6 +25,8 @@ return new class extends Migration
             $table->enum('kategori_usia', ['4-5th', '6-7th', '8-9th', '10-11th'])->nullable();
             $table->string('berat_badan')->nullable();
             $table->string('pembayaran')->nullable();
+            $table->foreignId('manager_id')->constrained('users');
+            $table->unsignedBigInteger('updated_by');
             $table->timestamps();
         });
     }
