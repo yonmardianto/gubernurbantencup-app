@@ -7,6 +7,11 @@
     <title>Home | Gubernur Banten Cup 2026</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/homepage.css') }}">
+    <meta property="og:title" content="Gubernur Banten Cup 2026">
+    <meta property="og:description" content="Gubernur Banten Cup 2026 - Taekwondo Championship 2026 Banten">
+    <meta property="og:image" content="{{ asset('frontend/assets/images/flyer.jpeg') }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+
 </head>
 
 <body id="body">
@@ -242,7 +247,7 @@
             var btn = document.querySelector('.nav-toggle');
             var menu = document.querySelector('.nav-menu');
             var locationBox = document.querySelector('.onlink-to');
-            
+
             if ($('#no_hp').length > 0) {
                 $('#no_hp').mask('62800000000000');
 
