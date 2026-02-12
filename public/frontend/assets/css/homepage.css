@@ -10,7 +10,7 @@ html {
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: #333;
 }
@@ -66,9 +66,12 @@ body {
 }
 
 .nav-item a:hover {
-    background: linear-gradient(90deg, rgba(42, 82, 152, 0.1), rgba(30, 60, 114, 0.08));
+    background: linear-gradient(
+        90deg,
+        rgba(42, 82, 152, 0.1),
+        rgba(30, 60, 114, 0.08)
+    );
 }
-
 
 /* Hero Section */
 .hero {
@@ -83,7 +86,7 @@ body {
 }
 
 .hero::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -154,14 +157,14 @@ body {
 }
 
 .tulisan-img {
-    max-width: 120%;
+    max-width: 100%;
     filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.2));
     position: relative;
     z-index: 2;
 }
 
 .gubernur-img {
-    max-width: 100%;
+    max-width: 80%;
     /* width: 500px; */
     /* height: 600px; */
     filter: drop-shadow(0 10px 30px rgba(255, 255, 255, 0.2));
@@ -186,10 +189,9 @@ body {
     position: absolute;
     width: 400px;
     height: 400px;
-    left: 777px;
-    top: 535px;
+    left: 50%;
+    top: 68%;
     display: flex;
-    gap: 5px;
 }
 
 .athlete-img {
@@ -255,7 +257,9 @@ body {
     background: rgba(255, 255, 255, 0.6);
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 .location-box:hover {
@@ -281,7 +285,6 @@ body {
     cursor: pointer;
     text-decoration: none;
 }
-
 
 .container {
     max-width: 1200px;
@@ -330,7 +333,9 @@ body {
     height: auto;
     object-fit: cover;
     display: block;
-    transition: transform 0.35s ease, filter 0.35s ease;
+    transition:
+        transform 0.35s ease,
+        filter 0.35s ease;
 }
 
 .gallery-item figcaption {
@@ -344,7 +349,6 @@ body {
     transform: scale(1.04);
     filter: saturate(1.05);
 }
-
 
 /* Signup Form Section */
 .signup-section {
@@ -375,7 +379,6 @@ body {
     max-width: 1200px;
     margin: 0 auto;
 }
-
 
 .submit-btn {
     width: 100%;
@@ -434,7 +437,7 @@ body {
     text-align: center;
 }
 
-.signup-new-section>.container>p {
+.signup-new-section > .container > p {
     font-size: 1.1rem;
     color: #666;
     text-align: center;
@@ -573,7 +576,6 @@ body {
     margin-bottom: 18px;
 }
 
-
 /* Contact Us Section */
 .contact-section {
     padding: 80px 20px;
@@ -594,7 +596,7 @@ body {
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 }
 
-.contact-section>.container>p {
+.contact-section > .container > p {
     font-size: 1.1rem;
     color: rgba(255, 255, 255, 0.95);
     text-align: center;
@@ -664,7 +666,7 @@ body {
 }
 
 .required::after {
-    content: '*';
+    content: "*";
     color: #ff0000;
 }
 
@@ -696,7 +698,6 @@ body {
 
 /* Responsive Contact Section */
 @media (max-width: 768px) {
-
     .nav-toggle {
         display: block;
     }
@@ -722,7 +723,6 @@ body {
     .nav-item a {
         padding: 10px 14px;
     }
-
 
     .hero-text h1 {
         font-size: 2.5rem;
@@ -795,15 +795,13 @@ body {
         padding: 35px 25px;
     }
 
-    .signup-new-section>.container>p {
+    .signup-new-section > .container > p {
         font-size: 1rem;
         margin-bottom: 40px;
     }
 }
 
-
 @media (max-width: 480px) {
-
     .hero {
         min-height: auto;
         padding: 40px 20px;
@@ -882,7 +880,6 @@ body {
         right: 8px;
         top: 8px;
     }
-
 
     .gallery-item {
         width: 100%;
@@ -965,7 +962,7 @@ body {
         margin-bottom: 10px;
     }
 
-    .contact-section>.container>p {
+    .contact-section > .container > p {
         font-size: 0.95rem;
         margin-bottom: 30px;
     }
@@ -992,15 +989,14 @@ body {
         font-size: 0.9rem;
     }
 
-    .tulisan-img{
-       top: 20px;
-       max-width: 100%;
+    .tulisan-img {
+        top: 20px;
+        max-width: 100%;
     }
 
     .location-section p {
         font-size: 0.9rem;
     }
-
 }
 
 /* Responsive: stack label above input on small screens */
@@ -1031,7 +1027,6 @@ body {
     }
 }
 
-
 /* Animations */
 @keyframes slideInLeft {
     from {
@@ -1056,7 +1051,6 @@ body {
         transform: translateX(0);
     }
 }
-
 
 @keyframes bounceIn {
     0% {
