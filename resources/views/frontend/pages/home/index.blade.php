@@ -112,7 +112,7 @@
                     @csrf
 
                     <span class="error-message" id="login-error-message"
-                        style="color: red; display: none; margin-bottom: 10px;">test</span>
+                        style="color: red; display: none; margin-bottom: 10px;"></span>
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" id="email" name="email" placeholder="Masukkan alamat email Anda"
@@ -145,22 +145,22 @@
             <button class="modal-close" aria-label="Close">×</button>
             <div class="modal-content">
 
-                <form class="signup-new-form modal-form" action="#" method="POST">
+                <form class="signup-new-form modal-form" action="#" method="POST" id="formSignup">
                     @csrf
                     <div class="form-group">
-                        <label for="modal-nama" class="required">Nama Lengkap</label>
-                        <input type="text" id="modal-nama" name="nama"
+                        <label for="modal-nama" class="required">Nama</label>
+                        <input type="text" id="modal-nama" name="name"
                             placeholder="Masukkan nama lengkap Anda" required>
                     </div>
                     <div class="form-group">
-                        <label for="modal-email" class="required">Alamat Email</label>
+                        <label for="modal-email" class="required">Email</label>
                         <input type="email" id="modal-email" name="email"
                             placeholder="Masukkan alamat email Anda" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="modal-no-hp" class="required">No Hp</label>
-                        <input type="tel" id="modal-no-hp" name="no-hp" placeholder="Masukkan nomor hp Anda"
+                        <label for="modal-no-hp" class="required">No. Hp</label>
+                        <input type="text" id="no_hp" name="no_hp" placeholder="Masukkan nomor hp Anda"
                             required>
                     </div>
                     <div class="form-group">
@@ -182,7 +182,7 @@
                     <div class="form-group">
                         <label for="modal-confirm-password" class="required">Confirm Password</label>
                         <div class="password-wrapper">
-                            <input type="password" id="modal-confirm-password" name="confirm-password"
+                            <input type="password" id="modal-confirm-password" name="password_confirmation"
                                 placeholder="Konfirmasi password Anda" required>
 
                             <span class="toggle-password" onclick="toggleVisibility('modal-confirm-password')"><i
@@ -216,6 +216,10 @@
         </div>
     </section>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
     <script type="text/javascript">
         function toggleVisibility(inputId) {
             const inputField = document.getElementById(inputId);
@@ -238,6 +242,11 @@
             var btn = document.querySelector('.nav-toggle');
             var menu = document.querySelector('.nav-menu');
             var locationBox = document.querySelector('.onlink-to');
+            
+            if ($('#no_hp').length > 0) {
+                $('#no_hp').mask('62800000000000');
+
+            }
 
             if (locationBox) {
                 locationBox.addEventListener('click', function() {
@@ -317,6 +326,7 @@
             });
 
 
+            //Form Login AJAX Submission
             var formLogin = document.getElementById('formLogin');
             formLogin.addEventListener('submit', function(e) {
 
@@ -371,6 +381,69 @@
                         loginButton.disabled = false;
                         loginButton.innerText = 'Login';
                     }
+                };
+
+                xhr.onerror = function() {
+                    alert('Network error occurred. Please check your connection.');
+                    loginButton.disabled = false;
+                    loginButton.innerText = 'Login';
+                };
+
+                xhr.send(formData);
+
+            });
+
+            //Form signup AJAX Submission
+            var formSignup = document.getElementById('formSignup');
+            formSignup.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                var signupButton = this.querySelector('button[type="submit"]');
+                signupButton.disabled = true;
+                signupButton.innerText = 'Signing up...';
+
+                var formData = new FormData(this);
+                var xhr = new XMLHttpRequest();
+
+                const csrfToken = this.querySelector('input[name="_token"]')?.value;
+
+                // Replace '/register' with your actual Laravel route
+                xhr.open('POST', '{{ route('register', ['type' => 'manager-team']) }}', true);
+
+                // Crucial for Laravel: CSRF Token
+                xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+                xhr.setRequestHeader('Accept', 'application/json'); // Expect JSON response
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        // Successful registration
+                        window.location.href =
+                            '{{ route('manager-team.dashboard') }}'; // Redirect to dashboard or desired page
+                        closeSignupModal();
+                    } else if (xhr.status === 422) {
+                        // Validation errors
+                        var errors = JSON.parse(xhr.responseText);
+                        var errorMessages = [];
+                        for (var key in errors.errors) {
+                            if (errors.errors.hasOwnProperty(key)) {
+                                errorMessages.push(errors.errors[key].join(' '));
+                            }
+                        }
+                        alert('Registration failed:\n' + errorMessages.join('\n'));
+
+                        signupButton.disabled = false;
+                        signupButton.innerText = 'Daftar Sekarang';
+                    } else {
+                        alert('An unexpected error occurred. Please try again.');
+
+                        signupButton.disabled = false;
+                        signupButton.innerText = 'Daftar Sekarang';
+                    }
+                };
+
+                xhr.onerror = function() {
+                    alert('Network error occurred. Please check your connection.');
+                    signupButton.disabled = false;
+                    signupButton.innerText = 'Daftar Sekarang';
                 };
 
                 xhr.send(formData);

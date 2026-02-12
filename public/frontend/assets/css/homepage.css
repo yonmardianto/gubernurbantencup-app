@@ -154,7 +154,7 @@ body {
 }
 
 .tulisan-img {
-    max-width: 130%;
+    max-width: 120%;
     filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.2));
     position: relative;
     z-index: 2;
@@ -184,10 +184,10 @@ body {
 
 .athletes-showcase {
     position: absolute;
-    width: 500px;
-    height: 500px;
-    left: 865px;
-    top: 490px;
+    width: 400px;
+    height: 400px;
+    left: 777px;
+    top: 535px;
     display: flex;
     gap: 5px;
 }
