@@ -9,9 +9,10 @@
     <title>Home | Gubernur Banten Cup 2026</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/homepage.css') }}">
-
     <meta property="og:locale" content="id_ID">
     <meta property="og:site_name" content="Gubernur Banten Cup">
+    <link rel="icon" href="{{ asset('frontend/assets/images/favicon.ico') }}" type="image/x-icon">
+
 
     <!-- Facebook Meta Tags -->
     <meta property="og:url" content="{{ url()->current() }}">
