@@ -20,10 +20,11 @@ return new class extends Migration
             $table->enum('kategori', ['Pemula', 'Prestasi']);
             $table->enum('kategori_level', ['PRACADET', 'CADET', 'JUNIOR', 'SENIOR']);
             $table->enum('kategori_tanding', ['POOMSAE', 'KYORUGI']);
-            $table->enum('kelompok_poomsae', ['Individu-Putra', 'Individu-Putri', 'Pair', 'Beregu'])->nullable();
-            $table->enum('sabuk_poomsae', ['KUNING/KUNING-STRIP', 'HIJAU/HIJAU-STRIP', 'BIRU/MERAH'])->nullable();
+            $table->enum('kelompok_poomsae', ['Individu-Putra', 'Individu-Putri', 'Pair', 'Beregu', 'Freestyle'])->nullable();
+            $table->enum('sabuk_poomsae', ['PUTIH', 'KUNING', 'KUNING-STRIP', 'HIJAU', 'HIJAU-STRIP', 'BIRU', 'BIRU-STRIP', 'MERAH'])->nullable();
             $table->enum('kategori_usia', ['4-5th', '6-7th', '8-9th', '10-11th'])->nullable();
             $table->string('berat_badan')->nullable();
+            $table->integer('tinggi_badan')->nullable();
             $table->string('pembayaran')->nullable();
             $table->foreignId('manager_id')->constrained('users');
             $table->unsignedBigInteger('updated_by');
