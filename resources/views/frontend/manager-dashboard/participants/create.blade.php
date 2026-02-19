@@ -151,6 +151,16 @@
                                     </div>
                                 </div>
 
+                                <div class="col-xl-12 div-tinggi-badan">
+                                    <div class="wsus__login_form_input">
+                                        <label for="tinggi_badan"> Tinggi Badan (cm)</label>
+                                        <input type="number" name="tinggi_badan" class="form-control"
+                                            id="tinggi_badan">
+
+                                        <x-input-error :messages="$errors->get('tinggi_badan')" class="mt-2" />
+                                    </div>
+                                </div>
+
 
                             </div>
 

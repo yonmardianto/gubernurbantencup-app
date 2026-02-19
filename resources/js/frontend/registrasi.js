@@ -1,12 +1,10 @@
 $(function () {
-
-    if($('#no_hp').length > 0){
-        $('#no_hp').mask('62800000000000');
-
+    if ($("#no_hp").length > 0) {
+        $("#no_hp").mask("62800000000000");
     }
 
     const dataLevel = {
-        PRACADET:"PRACADET",
+        PRACADET: "PRACADET",
         CADET: "CADET",
         JUNIOR: "JUNIOR",
         SENIOR: "SENIOR",
@@ -17,17 +15,18 @@ $(function () {
         "PRACADET_6-7": "PRACADET 6-7",
         "PRACADET_8-9": "PRACADET 8-9",
         "PRACADET_10-11": "PRACADET 10-11",
-        "CADET": "CADET",
-        "JUNIOR": "JUNIOR",
-        "SENIOR": "SENIOR",
+        CADET: "CADET",
+        JUNIOR: "JUNIOR",
+        SENIOR: "SENIOR",
     };
     const dataKategoriTanding = { POOMSAE: "POOMSAE", KYORUGI: "KYORUGI" };
 
     const prestasiPoomSae = {
         "Individu-Putra": "Individu Putra",
         "Individu-Putri": "Individu Putri",
-        'Pair': "Pair",
-        'Beregu': "Beregu",
+        Pair: "Pair",
+        Beregu: "Beregu",
+        Freestyle: "Freestlye",
     };
 
     const pemulaPoomSaeGroup1 = {
@@ -35,10 +34,21 @@ $(function () {
         "Individu-Putri": "Individu Putri",
     };
 
+    // const pemulaPoomSaeGroup2 = {
+    //     "KUNING/KUNING-STRIP": "KUNING/KUNING STRIP",
+    //     "HIJAU/HIJAU-STRIP": "HIJAU/HIJAU STRIP",
+    //     "BIRU/MERAH": "BIRU/MERAH",
+    // };
+
     const pemulaPoomSaeGroup2 = {
-        "KUNING/KUNING-STRIP": "KUNING/KUNING STRIP",
-        "HIJAU/HIJAU-STRIP": "HIJAU/HIJAU STRIP",
-        "BIRU/MERAH": "BIRU/MERAH",
+        PUTIH: "PUTIH",
+        KUNING: "KUNING",
+        "KUNING-STRIP": "KUNING-STRIP",
+        HIJAU: "HIJAU",
+        "HIJAU-STRIP": "HIJAU-STRIP",
+        BIRU: "BIRU",
+        "BIRU-STRIP": "BIRU-STRIP",
+        MERAH: "MERAH",
     };
 
     const pemulaKyorugiUsiaPraCadet = {
@@ -73,7 +83,7 @@ $(function () {
             "U.45 KG": "U.45 KG",
             "O.45 KG": "O.45 KG",
         },
-    }
+    };
 
     const pracadetBeratBadan = {
         "PRACADET_4-5": {
@@ -85,7 +95,7 @@ $(function () {
                 "U.29 KG": "U.29 KG",
                 "U.33 KG": "U.33 KG",
                 "U.37 KG": "U.37 KG",
-                "U.37,1 KG": "U.37,1 KG"
+                "U.37,1 KG": "U.37,1 KG",
             },
 
             Putri: {
@@ -96,7 +106,7 @@ $(function () {
                 "U.27 KG": "U.27 KG",
                 "U.31 KG": "U.31 KG",
                 "U.35 KG": "U.35 KG",
-                "U.35,1 KG": "U.35,1 KG"
+                "U.35,1 KG": "U.35,1 KG",
             },
         },
 
@@ -109,7 +119,7 @@ $(function () {
                 "U.29 KG": "U.29 KG",
                 "U.33 KG": "U.33 KG",
                 "U.37 KG": "U.37 KG",
-                "U.37,1 KG": "U.37,1 KG"
+                "U.37,1 KG": "U.37,1 KG",
             },
 
             Putri: {
@@ -120,12 +130,11 @@ $(function () {
                 "U.27 KG": "U.27 KG",
                 "U.31 KG": "U.31 KG",
                 "U.35 KG": "U.35 KG",
-                "U.35,1 KG": "U.35,1 KG"
+                "U.35,1 KG": "U.35,1 KG",
             },
         },
 
         "PRACADET_8-9": {
-
             Putra: {
                 "U.20 KG": "U.20 KG",
                 "U.22 KG": "U.22 KG",
@@ -136,8 +145,7 @@ $(function () {
                 "U.32 KG": "U.32 KG",
                 "U.34 KG": "U.34 KG",
                 "U.36 KG": "U.36 KG",
-                "O.36,1 KG": "O.36,1 KG"
-
+                "O.36,1 KG": "O.36,1 KG",
             },
 
             Putri: {
@@ -150,13 +158,11 @@ $(function () {
                 "U.30 KG": "U.30 KG",
                 "U.32 KG": "U.32 KG",
                 "U.34 KG": "U.34 KG",
-                "O.34,1 KG": "O.34,1 KG"
+                "O.34,1 KG": "O.34,1 KG",
             },
-
         },
 
         "PRACADET_10-11": {
-
             Putra: {
                 "U.24 KG": "U.24 KG",
                 "U.26 KG": "U.26 KG",
@@ -168,7 +174,6 @@ $(function () {
                 "U.38 KG": "U.38 KG",
                 "U.40 KG": "U.40 KG",
                 "O.40,1 KG": "O.40,1 KG",
-
             },
 
             Putri: {
@@ -183,10 +188,7 @@ $(function () {
                 "U.38 KG": "U.38 KG",
                 "O.38,1 KG": "O.38,1 KG",
             },
-
         },
-
-
     };
 
     const cadetBeratBadan = {
@@ -266,30 +268,31 @@ $(function () {
         },
     };
 
-
-
-    $("#kategori, #kategori_level, #kategori_tanding, #kelompok_poomsae, #sabuk_poomsae, #berat_badan").select2();
+    $(
+        "#kategori, #kategori_level, #kategori_tanding, #kelompok_poomsae, #sabuk_poomsae, #berat_badan",
+    ).select2();
 
     $("#kategori").on("change", function () {
         $("#sectionPoomSae").addClass("d-none");
+        $("#sectionKyorugi").addClass("d-none");
 
         $("#kategori_level, #kategori_tanding").empty();
         $("#kategori_level, #kategori_tanding").prepend(
-            `<option value="" selected>Pilih</option>`
+            `<option value="" selected>Pilih</option>`,
         );
 
         if ($(this).val() == "Pemula") {
             //Pemula
             $.each(dataLevelPemula, function (index, value) {
                 $("#kategori_level").append(
-                    `<option value=${index} >${value}</option>`
+                    `<option value=${index} >${value}</option>`,
                 );
             });
         } else if ($(this).val() == "Prestasi") {
             //Prestasi
             $.each(dataLevel, function (index, value) {
                 $("#kategori_level").append(
-                    `<option value=${index} >${value}</option>`
+                    `<option value=${index} >${value}</option>`,
                 );
             });
         }
@@ -297,12 +300,18 @@ $(function () {
 
     $("#kategori_level").on("change", function () {
         $("#kategori_tanding").empty();
-        $("#kategori_tanding").prepend(`<option selected value="">Pilih</option>`);
+        $("#kategori_tanding").prepend(
+            `<option selected value="">Pilih</option>`,
+        );
 
         $("#sectionPoomSae").addClass("d-none");
         $("#sectionKyorugi").addClass("d-none");
 
-        $("#berat_badan").empty().prepend(`<option selected value="">Pilih</option>`);
+        $("#berat_badan")
+            .empty()
+            .prepend(`<option selected value="">Pilih</option>`);
+
+        $("#tinggi_badan").val("");
         $("#kelompok_poomsae")
             .empty()
             .prepend(`<option value="" selected>Pilih</option>`);
@@ -312,7 +321,7 @@ $(function () {
 
         $.each(dataKategoriTanding, function (index, value) {
             $("#kategori_tanding").append(
-                `<option value=${index} >${value}</option>`
+                `<option value=${index} >${value}</option>`,
             );
         });
 
@@ -330,23 +339,31 @@ $(function () {
     const beratBadan = () => {
         let genderIndex = $("#gender").val();
 
-        $("#berat_badan").empty().prepend(`<option value="" selected>Pilih</option>`);
+        $("#berat_badan")
+            .empty()
+            .prepend(`<option value="" selected>Pilih</option>`);
 
         //PRA CADET
-        const pracadetKategoriLevels = ["PRACADET_4-5", "PRACADET_6-7", "PRACADET_8-9", "PRACADET_10-11"];
+        const pracadetKategoriLevels = [
+            "PRACADET_4-5",
+            "PRACADET_6-7",
+            "PRACADET_8-9",
+            "PRACADET_10-11",
+        ];
         if (pracadetKategoriLevels.includes($("#kategori_level").val())) {
-
-            if(genderIndex != ''){
+            if (genderIndex != "") {
                 let kategoriLevel = $("#kategori_level").val();
                 // console.log(pracadetBeratBadan);
-                $.each(pracadetBeratBadan[kategoriLevel][genderIndex], function (index, value) {
-                    $("#berat_badan").append(
-                        `<option value=${index} >${value}</option>`
-                    );
-                });
-
-            }else{
-                alert('Gender belum dipilih');
+                $.each(
+                    pracadetBeratBadan[kategoriLevel][genderIndex],
+                    function (index, value) {
+                        $("#berat_badan").append(
+                            `<option value=${index} >${value}</option>`,
+                        );
+                    },
+                );
+            } else {
+                alert("Gender belum dipilih");
                 return false;
             }
         }
@@ -354,11 +371,14 @@ $(function () {
         if ($("#kategori_level").val() == "PRACADET") {
             //PRACADET
 
-            $.each(pracadetPrestasiBeratBadan[genderIndex], function (index, val) {
-                $("#berat_badan").append(
-                    `<option value=${index} >${val}</option>`
-                );
-            });
+            $.each(
+                pracadetPrestasiBeratBadan[genderIndex],
+                function (index, val) {
+                    $("#berat_badan").append(
+                        `<option value=${index} >${val}</option>`,
+                    );
+                },
+            );
         }
 
         if ($("#kategori_level").val() == "CADET") {
@@ -366,7 +386,7 @@ $(function () {
 
             $.each(cadetBeratBadan[genderIndex], function (index, val) {
                 $("#berat_badan").append(
-                    `<option value=${index} >${val}</option>`
+                    `<option value=${index} >${val}</option>`,
                 );
             });
         }
@@ -376,7 +396,7 @@ $(function () {
 
             $.each(juniorBeratBadan[genderIndex], function (index, val) {
                 $("#berat_badan").append(
-                    `<option value=${index} >${val}</option>`
+                    `<option value=${index} >${val}</option>`,
                 );
             });
         }
@@ -386,7 +406,7 @@ $(function () {
 
             $.each(seniorBeratBadan[genderIndex], function (index, val) {
                 $("#berat_badan").append(
-                    `<option value=${index} >${val}</option>`
+                    `<option value=${index} >${val}</option>`,
                 );
             });
         }
@@ -396,6 +416,8 @@ $(function () {
         if ($(this).val() == "POOMSAE") {
             $("#sectionPoomSae").removeClass("d-none");
             $("#sectionKyorugi").addClass("d-none");
+            $(".div-tinggi-badan").addClass("d-none");
+            $("#tinggi_badan").val("");
 
             $("#sabuk_poomsae")
                 .empty()
@@ -408,13 +430,13 @@ $(function () {
             if ($("#kategori").val() == "Pemula") {
                 $.each(pemulaPoomSaeGroup1, function (index, value) {
                     $("#kelompok_poomsae").append(
-                        `<option value=${index} >${value}</option>`
+                        `<option value=${index} >${value}</option>`,
                     );
                 });
 
                 $.each(pemulaPoomSaeGroup2, function (index, value) {
                     $("#sabuk_poomsae").append(
-                        `<option value=${index} >${value}</option>`
+                        `<option value=${index} >${value}</option>`,
                     );
                 });
 
@@ -424,36 +446,45 @@ $(function () {
 
                 $.each(prestasiPoomSae, function (index, value) {
                     $("#kelompok_poomsae").append(
-                        `<option value=${index} >${value}</option>`
+                        `<option value=${index} >${value}</option>`,
                     );
                 });
             }
         } else if ($(this).val() == "KYORUGI") {
             $("#sectionPoomSae").addClass("d-none");
             $("#sectionKyorugi").removeClass("d-none");
+
+            if ($("#kategori").val() == "Pemula") {
+                $(".div-tinggi-badan").removeClass("d-none");
+            } else {
+                $(".div-tinggi-badan").addClass("d-none");
+                $("#tinggi_badan").val("");
+            }
+
             beratBadan();
         }
     });
 
     $("#kategori_usia").on("change", function () {
-
         const genderIndex = $("#gender").val();
         const usiaPraCadet = $(this).val();
 
-        $("#berat_badan").empty().prepend(`<option value="" selected>Pilih</option>`);
+        $("#berat_badan")
+            .empty()
+            .prepend(`<option value="" selected>Pilih</option>`);
 
-        if(genderIndex != ''){
-            $.each(pracadetBeratBadan[usiaPraCadet][genderIndex], function (index, value) {
-                $("#berat_badan").append(
-                    `<option value=${index} >${value}</option>`
-                );
-            });
-
-        }else{
-            alert('Gender belum dipilih');
+        if (genderIndex != "") {
+            $.each(
+                pracadetBeratBadan[usiaPraCadet][genderIndex],
+                function (index, value) {
+                    $("#berat_badan").append(
+                        `<option value=${index} >${value}</option>`,
+                    );
+                },
+            );
+        } else {
+            alert("Gender belum dipilih");
             return false;
         }
-
     });
-
 });
