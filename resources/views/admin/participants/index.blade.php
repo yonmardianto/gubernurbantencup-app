@@ -263,10 +263,10 @@
                             data: 'tgl_lahir',
                             name: 'tgl_lahir',
                             'render': function(data, type) {
-                                if(data){
+                                if (data) {
                                     return type === 'sort' ? data : moment(data).format(
                                         'DD-MM-YYYY');
-                                }else{
+                                } else {
                                     return null;
                                 }
 

@@ -5,7 +5,7 @@
     @parent
 @stop
 @section('header_styles')
- <link rel="stylesheet" href="{{ asset('frontend/assets/css/datatables.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/datatables.min.css') }}" />
 @stop
 
 @section('content')
@@ -22,30 +22,40 @@
                         <table id="tbl_peserta" class="table table-bordered table-striped table-hover" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Nama</th>
-                                    <th>Gender</th>
-                                    <th>Kategori</th>
-                                    <th>Level</th>
-                                    <th>Kategori Tanding</th>
-                                    <th>Keterangan</th>
-                                    <th>Created At</th>
-                                    <th>Action</th>
+                                    <th style="font-size: 11px;">Nama</th>
+                                    <th style="font-size: 11px;">Gender</th>
+                                    <th style="font-size: 11px;">Kategori</th>
+                                    <th style="font-size: 11px;">Level</th>
+                                    <th style="font-size: 11px;">Kategori Tanding</th>
+
+                                    @if ($participants->contains('kategori', 'Pemula'))
+                                        <th style="font-size: 11px;">Tinggi Badan (cm)</th>
+                                    @endif
+
+                                    <th style="font-size: 11px;">Keterangan</th>
+                                    <th style="font-size: 11px;">Created At</th>
+                                    <th style="font-size: 11px;">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
 
                                 @forelse ($participants as $item)
                                     <tr>
-                                        <td>{{ $item->nama_lengkap }}</td>
-                                        <td>{{ $item->gender }}</td>
-                                        <td>{{ $item->kategori }}</td>
-                                        <td>{{ str_replace('_',' ', $item->kategori_level) }}</td>
-                                        <td>{{ $item->kategori_tanding }}</td>
-                                        <td>{{ $item->kategori_tanding === 'KYORUGI' ? $item->berat_badan : $item->kelompok_poomsae }}
+                                        <td style="font-size: 11px;">{{ $item->nama_lengkap }}</td>
+                                        <td style="font-size: 11px;">{{ $item->gender }}</td>
+                                        <td style="font-size: 11px;">{{ $item->kategori }}</td>
+                                        <td style="font-size: 11px;">{{ str_replace('_', ' ', $item->kategori_level) }}</td>
+                                        <td style="font-size: 11px;">{{ $item->kategori_tanding }}</td>
+                                        @if ($participants->contains('kategori', 'Pemula'))
+                                            <td style="font-size: 11px;">
+                                                {{ $item->kategori === 'Pemula' ? $item->tinggi_badan : '-' }}</td>
+                                        @endif
+                                        <td style="font-size: 11px;">
+                                            {{ $item->kategori_tanding === 'KYORUGI' ? $item->berat_badan : $item->kelompok_poomsae }}
                                         </td>
-                                        <td>{{ $item->created_at }}</td>
-                                        <td>
-                                            @if(!$lock)
+                                        <td style="font-size: 11px;">{{ $item->created_at }}</td>
+                                        <td style="font-size: 11px;">
+                                            @if (!$lock)
                                                 <a href="{{ route('manager-team.participants.edit', $item->id) }}"><i
                                                         class="fa fa-edit"></i> </a>
                                                 <a href="javascript:;"
@@ -58,7 +68,6 @@
                                                     @csrf
                                                     @method('DELETE')
                                                 </form>
-
                                             @endif
 
                                         </td>
@@ -86,7 +95,7 @@
 
     @stop
     @section('footer_scripts')
-    <script type="text/javascript" src="{{ asset('frontend/assets/js/datatables/datatables.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('frontend/assets/js/datatables/datatables.min.js') }}"></script>
         <script type="text/javascript">
             $(document).ready(function() {
 
