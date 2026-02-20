@@ -38,7 +38,7 @@ h6 {
 
 p,
 span {
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 400;
     margin: 0;
     color: var(--paraColor);
@@ -52,9 +52,10 @@ span {
 } */
 
 body{
-    font-family: "Inter", sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
+    font-size: 12px !important;
     background-color: #1e3c72  !important;
 }
 
@@ -13803,7 +13804,7 @@ footer {
 .wsus__dashboard_sidebar_menu li a {
     display: flex;
     flex-wrap: wrap;
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 500;
     padding: 13px 20px;
     color: var(--paraColor);

@@ -70,8 +70,12 @@
                                         <th>Kategori</th>
                                         <th>Level</th>
                                         <th>Kategori Tanding</th>
+                                        @if ($participants->contains('kategori', 'Pemula'))
+                                            <th>Tinggi Badan (cm)</th>
+                                        @endif
+                                        <th>Sabuk</th>
                                         <th>Keterangan</th>
-                                        <th>Created At</th>
+                                        <th data-col="created">Created At</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -81,8 +85,14 @@
                                             <td>{{ $item->nama_lengkap }}</td>
                                             <td>{{ $item->gender }}</td>
                                             <td>{{ $item->kategori }}</td>
-                                            <td>{{ str_replace('_',' ',$item->kategori_level) }}</td>
+                                            <td>{{ str_replace('_', ' ', $item->kategori_level) }}</td>
                                             <td>{{ $item->kategori_tanding }}</td>
+                                            @if ($participants->contains('kategori', 'Pemula'))
+                                                <td style="font-size: 11px;">
+                                                    {{ $item->kategori === 'Pemula' ? $item->tinggi_badan : '-' }}</td>
+                                            @endif
+
+                                            <td>{{ $item->sabuk }}</td>
                                             <td>{{ $item->kategori_tanding === 'KYORUGI' ? $item->berat_badan : $item->kelompok_poomsae }}
                                             </td>
                                             <td>{{ $item->created_at }}</td>
@@ -121,30 +131,35 @@
             const dataParticipants = {{ count($participants) }};
             const namaClub = `{{ $manager->club }}`;
 
+
+            var createdColIndex = $('#tbl_peserta thead th').index(
+                $('#tbl_peserta thead th[data-col="created"]')
+            );
+
             if (dataParticipants > 0) {
                 new DataTable('#tbl_peserta', {
                     order: [
-                        [6, 'desc']
+                        [createdColIndex, 'desc']
                     ],
                     dom: 'Bflrtip',
                     pageLength: 100,
                     buttons: [{
-                                extend: 'excelHtml5',
-                                exportOptions: {
-                                    columns: [0, 1, 2, 3, 4, 5, 6],
-                                    modifier: {
-                                        page: 'all',
-                                        selected: false
-                                    },
+                            extend: 'excelHtml5',
+                            exportOptions: {
+                                columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                                modifier: {
+                                    page: 'all',
+                                    selected: false
                                 },
-                                text: 'Download',
-                                filename: function() {
-                                    // return 'Daftar Peserta';
-                                    return `Daftar Peserta - ${namaClub}`;
-                                },
-                            }
+                            },
+                            text: 'Download',
+                            filename: function() {
+                                // return 'Daftar Peserta';
+                                return `Daftar Peserta - ${namaClub}`;
+                            },
+                        }
 
-                        ]
+                    ]
 
                 });
 

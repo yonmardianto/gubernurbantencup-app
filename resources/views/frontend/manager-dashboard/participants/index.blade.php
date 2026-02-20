@@ -33,7 +33,7 @@
                                     @endif
 
                                     <th style="font-size: 11px;">Keterangan</th>
-                                    <th style="font-size: 11px;">Created At</th>
+                                    <th style="font-size: 11px;" data-col="created">Created</th>
                                     <th style="font-size: 11px;">Action</th>
                                 </tr>
                             </thead>
@@ -101,16 +101,20 @@
 
                 const dataParticipants = {{ count($participants) }};
 
+                var createdColIndex = $('#tbl_peserta thead th').index(
+                    $('#tbl_peserta thead th[data-col="created"]')
+                );
+
                 if (dataParticipants > 0) {
                     new DataTable('#tbl_peserta', {
                         order: [
-                            [6, 'desc']
+                            [createdColIndex, 'desc']
                         ],
                         dom: 'Bflrtip',
                         buttons: [{
                                 extend: 'excelHtml5',
                                 exportOptions: {
-                                    columns: [0, 1, 2, 3, 4, 5, 6],
+                                    columns: [0, 1, 2, 3, 4, 5, 6, 7],
                                     modifier: {
                                         page: 'all',
                                         selected: false

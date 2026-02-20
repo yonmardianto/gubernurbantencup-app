@@ -35,15 +35,15 @@
                                 <div class="required mb-2">
                                     <label for="nama_lengkap" class="form-label">Nama </label>
                                     <input name="nama_lengkap" id="nama_lengkap" type="text" placeholder="Nama lengkap"
-                                        class="form-control" value="{{ old('nama_lengkap') }}">
-                                    <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                                        class="form-control form-control-sm" value="{{ old('nama_lengkap') }}">
+                                    <x-input-error :messages="$errors->get('nama_lengkap')" class="mt-2" />
                                 </div>
                             </div>
 
                             <div class="col-xl-4">
                                 <div class="required  mb-2">
                                     <label for="gender" class="form-label">Gender </label>
-                                    <select class="form-select" name="gender" id="gender">
+                                    <select class="form-select form-select-sm" name="gender" id="gender">
                                         <option selected value="">Pilih</option>
                                         <option value="Putra">Putra</option>
                                         <option value="Putri">Putri</option>
@@ -55,7 +55,7 @@
                             <div class="col-xl-4">
                                 <div class="required  mb-2">
                                     <label for="gender" class="form-label">Tanggal Lahir </label>
-                                    <input type="date" class="form-control  datetimepicker-input"
+                                    <input type="date" class="form-control form-control-sm  datetimepicker-input"
                                         data-target="#tgl_lahir" name="tgl_lahir" value="" />
 
 
@@ -68,7 +68,7 @@
                             <div class="col-xl-12">
                                 <div class="required  mb-2">
                                     <label for="email" class="form-label">Club </label>
-                                    <input class="form-control" name="club" id="club" type="text"
+                                    <input class="form-control form-control-sm" name="club" id="club" type="text"
                                         placeholder="Club" value="{{ auth()->user()->club }}" readonly
                                         style="background-color: #dfe6e9; !important;">
                                     <x-input-error :messages="$errors->get('club')" class="mt-2" />
@@ -78,7 +78,8 @@
                             <div class="col-xl-6">
                                 <div class="required mb-2">
                                     <label for="kategori" class="form-label">Kategori</label>
-                                    <select name="kategori" class="form-control select2" id="kategori" required>
+                                    <select name="kategori" class="form-select form-select-sm select2" id="kategori"
+                                        required>
                                         <option selected value="">Pilih</option>
                                         <option value="Pemula">Pemula</option>
                                         <option value="Prestasi">Prestasi</option>
@@ -90,7 +91,8 @@
                             <div class="col-xl-6">
                                 <div class="required mb-2">
                                     <label for="kategori_level" class="form-label">Kategori Level </label>
-                                    <select name="kategori_level" class="form-control select2" id="kategori_level" required>
+                                    <select name="kategori_level" class="form-select form-select-sm select2"
+                                        id="kategori_level" required>
 
                                     </select>
 
@@ -102,7 +104,8 @@
                             <div class="col-xl-12">
                                 <div class="required mb-2">
                                     <label for="kategori_tanding" class="form-label">Kategori Pertandingan </label>
-                                    <select name="kategori_tanding" class="form-control select2" id="kategori_tanding">
+                                    <select name="kategori_tanding" class="form-select form-select-sm select2"
+                                        id="kategori_tanding">
                                     </select>
                                     <x-input-error :messages="$errors->get('kategori_tanding')" class="mt-2" />
                                 </div>
@@ -113,7 +116,8 @@
                                 <div class="col-xl-12">
                                     <div class="wsus__login_form_input">
                                         <label>Pilih Kategori : </label>
-                                        <select name="kelompok_poomsae" class="form-control select2" id="kelompok_poomsae">
+                                        <select name="kelompok_poomsae" class="form-select form-select-sm select2"
+                                            id="kelompok_poomsae">
                                         </select>
 
                                         <x-input-error :messages="$errors->get('kelompok_poomsae')" class="mt-2" />
@@ -123,9 +127,10 @@
                                 <div class="col-xl-12 div-sabuk-poomsae">
                                     <div class="wsus__login_form_input">
                                         <label>Pilih Jenis Sabuk : </label>
-                                        <select name="sabuk_poomsae" class="form-control select2" id="sabuk_poomsae">
+                                        <select name="sabuk" class="form-select form-select-sm select2"
+                                            id="sabuk_poomsae">
                                         </select>
-                                        <x-input-error :messages="$errors->get('sabuk_poomsae')" class="mt-2" />
+                                        <x-input-error :messages="$errors->get('sabuk')" class="mt-2" />
                                     </div>
                                 </div>
 
@@ -144,8 +149,9 @@
 
                                 <div class="col-xl-12">
                                     <div class="wsus__login_form_input">
-                                        <label for="berat_badan"> Berat Badan</label>
-                                        <select name="berat_badan" class="form-control select2" id="berat_badan">
+                                        <label for="berat_badan"> Berat Badan (Kg)</label>
+                                        <select name="berat_badan" class="form-select form-select-sm select2"
+                                            id="berat_badan">
                                         </select>
                                         <x-input-error :messages="$errors->get('berat_badan')" class="mt-2" />
                                     </div>
@@ -154,10 +160,20 @@
                                 <div class="col-xl-12 div-tinggi-badan">
                                     <div class="wsus__login_form_input">
                                         <label for="tinggi_badan"> Tinggi Badan (cm)</label>
-                                        <input type="number" name="tinggi_badan" class="form-control"
-                                            id="tinggi_badan">
+                                        <input type="number" name="tinggi_badan" class="form-control form-control-sm"
+                                            id="tinggi_badan" placeholder="Input Tinggi Badan" id="tinggi_badan">
 
                                         <x-input-error :messages="$errors->get('tinggi_badan')" class="mt-2" />
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-12 div-sabuk-kyorugi">
+                                    <div class="wsus__login_form_input">
+                                        <label>Pilih Jenis Sabuk : </label>
+                                        <select name="sabuk" class="form-select form-select-sm select2"
+                                            id="sabuk_kyorugi">
+                                        </select>
+                                        <x-input-error :messages="$errors->get('sabuk')" class="mt-2" />
                                     </div>
                                 </div>
 

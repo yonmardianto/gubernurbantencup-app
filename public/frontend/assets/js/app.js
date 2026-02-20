@@ -873,8 +873,11 @@ $(function () {
     };
 
     $(
-        "#kategori, #kategori_level, #kategori_tanding, #kelompok_poomsae, #sabuk_poomsae, #berat_badan",
+        "#kategori, #kategori_level, #kategori_tanding, #kelompok_poomsae, #berat_badan",
     ).select2();
+
+    $("#sabuk_kyorugi").select2();
+    $("#sabuk_poomsae").select2();
 
     $("#kategori").on("change", function () {
         $("#sectionPoomSae").addClass("d-none");
@@ -1023,9 +1026,10 @@ $(function () {
             $(".div-tinggi-badan").addClass("d-none");
             $("#tinggi_badan").val("");
 
-            $("#sabuk_poomsae")
+            $("#sabuk_poomsae, #sabuk_kyorugi")
                 .empty()
                 .prepend(`<option value="" selected>Pilih</option>`);
+
             $("#kelompok_poomsae")
                 .empty()
                 .prepend(`<option value="" selected>Pilih</option>`);
@@ -1047,6 +1051,7 @@ $(function () {
                 $(".div-sabuk-poomsae").removeClass("d-none");
             } else if ($("#kategori").val() == "Prestasi") {
                 $(".div-sabuk-poomsae").addClass("d-none");
+                $(".div-sabuk-kyorugi").addClass("d-none");
 
                 $.each(prestasiPoomSae, function (index, value) {
                     $("#kelompok_poomsae").append(
@@ -1057,6 +1062,12 @@ $(function () {
         } else if ($(this).val() == "KYORUGI") {
             $("#sectionPoomSae").addClass("d-none");
             $("#sectionKyorugi").removeClass("d-none");
+
+            $.each(pemulaPoomSaeGroup2, function (index, value) {
+                $("#sabuk_kyorugi").append(
+                    `<option value=${index} >${value}</option>`,
+                );
+            });
 
             if ($("#kategori").val() == "Pemula") {
                 $(".div-tinggi-badan").removeClass("d-none");

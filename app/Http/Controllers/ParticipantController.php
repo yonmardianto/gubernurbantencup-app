@@ -30,7 +30,7 @@ class ParticipantController extends Controller
 
             return view('admin.participants.index', compact('participants'));
         } else {
-            $participants = Participant::where('manager_id', $user->id)->orderby('id', 'desc')->get();
+            $participants = Participant::where('manager_id', $user->id)->orderby('created_at', 'desc')->get();
 
             $lock = filter_var(Setting::where('key', 'lock application')->value('value'), FILTER_VALIDATE_BOOLEAN);
 
@@ -76,7 +76,7 @@ class ParticipantController extends Controller
             'kategori_level' => $request->kategori_level,
             'kategori_tanding' => $request->kategori_tanding,
             'kelompok_poomsae' => $request->kelompok_poomsae,
-            'sabuk_poomsae' => $request->sabuk_poomsae,
+            'sabuk' => $request->sabuk,
             // 'kategori_usia' => $request->kategori_usia,
             'berat_badan' => $request->berat_badan,
             'tinggi_badan' => $request->tinggi_badan ?? null,
@@ -141,7 +141,7 @@ class ParticipantController extends Controller
         $participant->kategori_level = $request->kategori_level;
         $participant->kategori_tanding = $request->kategori_tanding;
         $participant->kelompok_poomsae = $request->kelompok_poomsae;
-        $participant->sabuk_poomsae = $request->sabuk_poomsae;
+        $participant->sabuk = $request->sabuk;
         // $participant->kategori_usia = $request->kategori_usia;
         $participant->berat_badan = $request->berat_badan ?? null;
         $participant->tinggi_badan = $request->tinggi_badan ?? null;

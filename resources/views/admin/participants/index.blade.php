@@ -159,31 +159,7 @@
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    {{-- <tbody class="table-tbody"> --}}
 
-                                    {{-- @forelse ($participants as $item)
-                                    <tr>
-                                        <td>{{ $item->nama_lengkap }}</td>
-                                        <td>{{ $item->gender }}</td>
-                                        <td>{{ $item->kategori }}</td>
-                                        <td>{{ $item->kategori_level }}</td>
-                                        <td>{{ $item->kategori_tanding }}</td>
-                                        <td>{{ $item->kategori_tanding === 'KYORUGI' ? $item->berat_badan : $item->kelompok_poomsae }}
-                                        </td>
-                                        <td>{{ $item->club }}</td>
-                                        <td>{{ $item->created_at }}</td>
-                                        <td><a href="{{ route('admin.participants.show', $item->id) }}"><i
-                                                    class="fa fa-eye"></i> Lihat </a>
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="8">Data tidak ditemukan </td>
-                                    </tr>
-                                @endforelse --}}
-
-
-                                    {{-- </tbody> --}}
                                 </table>
                             </div>
                         </div>
