@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>
         @section('title')
-            | Kajati Cup Banten 2025
+            | Gubernur Banten Cup 2026
         @show
     </title>
     <meta name="csrf_token" content="{{ csrf_token() }}">
@@ -49,4 +49,3 @@
 </body>
 
 </html>
-

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->enum('gender', ['Putra', 'Putri']);
             $table->string('club');
             $table->enum('kategori', ['Pemula', 'Prestasi']);
-            $table->enum('kategori_level', ['PRACADET', 'CADET', 'JUNIOR', 'SENIOR']);
+            $table->string('kategori_level');
             $table->enum('kategori_tanding', ['POOMSAE', 'KYORUGI']);
             $table->enum('kelompok_poomsae', ['Individu-Putra', 'Individu-Putri', 'Pair', 'Beregu', 'Freestyle'])->nullable();
             $table->enum('sabuk_poomsae', ['PUTIH', 'KUNING', 'KUNING-STRIP', 'HIJAU', 'HIJAU-STRIP', 'BIRU', 'BIRU-STRIP', 'MERAH'])->nullable();
