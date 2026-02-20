@@ -26,7 +26,7 @@ $(function () {
         "Individu-Putri": "Individu Putri",
         Pair: "Pair",
         Beregu: "Beregu",
-        Freestyle: "Freestlye",
+        Freestyle: "Freestyle",
     };
 
     const pemulaPoomSaeGroup1 = {
