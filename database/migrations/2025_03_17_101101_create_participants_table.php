@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('kategori_tanding', ['POOMSAE', 'KYORUGI']);
             $table->enum('kelompok_poomsae', ['Individu-Putra', 'Individu-Putri', 'Pair', 'Beregu', 'Freestyle'])->nullable();
             $table->enum('sabuk_poomsae', ['PUTIH', 'KUNING', 'KUNING-STRIP', 'HIJAU', 'HIJAU-STRIP', 'BIRU', 'BIRU-STRIP', 'MERAH'])->nullable();
+            $table->enum('sabuk_kyorugi', ['PUTIH', 'KUNING', 'KUNING-STRIP', 'HIJAU', 'HIJAU-STRIP', 'BIRU', 'BIRU-STRIP', 'MERAH'])->nullable();
             $table->enum('kategori_usia', ['4-5th', '6-7th', '8-9th', '10-11th'])->nullable();
             $table->string('berat_badan')->nullable();
             $table->integer('tinggi_badan')->nullable();

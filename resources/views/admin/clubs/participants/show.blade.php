@@ -92,7 +92,9 @@
                                                     {{ $item->kategori === 'Pemula' ? $item->tinggi_badan : '-' }}</td>
                                             @endif
 
-                                            <td>{{ $item->sabuk }}</td>
+                                            <td>{{ $item->kategori_tanding === 'KYORUGI' ? $item->sabuk_kyorugi : $item->sabuk_poomsae }}
+                                            </td>
+                                            </td>
                                             <td>{{ $item->kategori_tanding === 'KYORUGI' ? $item->berat_badan : $item->kelompok_poomsae }}
                                             </td>
                                             <td>{{ $item->created_at }}</td>

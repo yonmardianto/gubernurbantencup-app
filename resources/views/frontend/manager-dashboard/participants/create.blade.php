@@ -127,7 +127,7 @@
                                 <div class="col-xl-12 div-sabuk-poomsae">
                                     <div class="wsus__login_form_input">
                                         <label>Pilih Jenis Sabuk : </label>
-                                        <select name="sabuk" class="form-select form-select-sm select2"
+                                        <select name="sabuk_poomsae" class="form-select form-select-sm select2"
                                             id="sabuk_poomsae">
                                         </select>
                                         <x-input-error :messages="$errors->get('sabuk')" class="mt-2" />
@@ -161,7 +161,7 @@
                                     <div class="wsus__login_form_input">
                                         <label for="tinggi_badan"> Tinggi Badan (cm)</label>
                                         <input type="number" name="tinggi_badan" class="form-control form-control-sm"
-                                            id="tinggi_badan" placeholder="Input Tinggi Badan" id="tinggi_badan">
+                                            id="tinggi_badan" id="tinggi_badan">
 
                                         <x-input-error :messages="$errors->get('tinggi_badan')" class="mt-2" />
                                     </div>
@@ -170,10 +170,10 @@
                                 <div class="col-xl-12 div-sabuk-kyorugi">
                                     <div class="wsus__login_form_input">
                                         <label>Pilih Jenis Sabuk : </label>
-                                        <select name="sabuk" class="form-select form-select-sm select2"
+                                        <select name="sabuk_kyorugi" class="form-select form-select-sm select2"
                                             id="sabuk_kyorugi">
                                         </select>
-                                        <x-input-error :messages="$errors->get('sabuk')" class="mt-2" />
+                                        <x-input-error :messages="$errors->get('sabuk_kyorugi')" class="mt-2" />
                                     </div>
                                 </div>
 

@@ -1026,7 +1026,7 @@ $(function () {
             $(".div-tinggi-badan").addClass("d-none");
             $("#tinggi_badan").val("");
 
-            $("#sabuk_poomsae, #sabuk_kyorugi")
+            $("#sabuk_poomsae")
                 .empty()
                 .prepend(`<option value="" selected>Pilih</option>`);
 
@@ -1049,6 +1049,7 @@ $(function () {
                 });
 
                 $(".div-sabuk-poomsae").removeClass("d-none");
+                $(".div-sabuk-kyorugi").addClass("d-none");
             } else if ($("#kategori").val() == "Prestasi") {
                 $(".div-sabuk-poomsae").addClass("d-none");
                 $(".div-sabuk-kyorugi").addClass("d-none");
@@ -1062,6 +1063,11 @@ $(function () {
         } else if ($(this).val() == "KYORUGI") {
             $("#sectionPoomSae").addClass("d-none");
             $("#sectionKyorugi").removeClass("d-none");
+            $(".div-sabuk-kyorugi").removeClass("d-none");
+
+            $("#sabuk_kyorugi")
+                .empty()
+                .prepend(`<option value="" selected>Pilih</option>`);
 
             $.each(pemulaPoomSaeGroup2, function (index, value) {
                 $("#sabuk_kyorugi").append(

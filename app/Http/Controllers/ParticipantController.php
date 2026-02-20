@@ -76,7 +76,8 @@ class ParticipantController extends Controller
             'kategori_level' => $request->kategori_level,
             'kategori_tanding' => $request->kategori_tanding,
             'kelompok_poomsae' => $request->kelompok_poomsae,
-            'sabuk' => $request->sabuk,
+            'sabuk_poomsae' => $request->sabuk_poomsae ?? null,
+            'sabuk_kyorugi' => $request->sabuk_kyorugi ?? null,
             // 'kategori_usia' => $request->kategori_usia,
             'berat_badan' => $request->berat_badan,
             'tinggi_badan' => $request->tinggi_badan ?? null,
@@ -141,7 +142,8 @@ class ParticipantController extends Controller
         $participant->kategori_level = $request->kategori_level;
         $participant->kategori_tanding = $request->kategori_tanding;
         $participant->kelompok_poomsae = $request->kelompok_poomsae;
-        $participant->sabuk = $request->sabuk;
+        $participant->sabuk_poomsae = $request->sabuk_poomsae ?? null;
+        $participant->sabuk_kyorugi = $request->sabuk_kyorugi ?? null;
         // $participant->kategori_usia = $request->kategori_usia;
         $participant->berat_badan = $request->berat_badan ?? null;
         $participant->tinggi_badan = $request->tinggi_badan ?? null;

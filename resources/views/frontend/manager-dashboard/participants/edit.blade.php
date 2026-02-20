@@ -156,35 +156,36 @@
                             <div class="col-xl-12 div-sabuk-poomsae">
                                 <div class="wsus__login_form_input">
                                     <label>Pilih Jenis Sabuk : </label>
-                                    <select name="sabuk" class="form-select form-select-sm select2" id="sabuk_poomsae">
+                                    <select name="sabuk_poomsae" class="form-select form-select-sm select2"
+                                        id="sabuk_poomsae">
                                         <option selected value="">Pilih</option>
 
                                         <option value="PUTIH"
-                                            {{ isset($participant) && $participant->sabuk === 'PUTIH' ? 'selected' : '' }}>
+                                            {{ isset($participant) && $participant->sabuk_poomsae === 'PUTIH' ? 'selected' : '' }}>
                                             PUTIH</option>
 
                                         <option value="KUNING"
-                                            {{ isset($participant) && $participant->sabuk === 'KUNING' ? 'selected' : '' }}>
+                                            {{ isset($participant) && $participant->sabuk_poomsae === 'KUNING' ? 'selected' : '' }}>
                                             KUNING</option>
 
                                         <option value="KUNING-STRIP"
-                                            {{ isset($participant) && $participant->sabuk === 'KUNING-STRIP' ? 'selected' : '' }}>
+                                            {{ isset($participant) && $participant->sabuk_poomsae === 'KUNING-STRIP' ? 'selected' : '' }}>
                                             KUNING STRIP</option>
 
                                         <option value="HIJAU"
-                                            {{ isset($participant) && $participant->sabuk === 'HIJAU' ? 'selected' : '' }}>
+                                            {{ isset($participant) && $participant->sabuk_poomsae === 'HIJAU' ? 'selected' : '' }}>
                                             HIJAU</option>
 
                                         <option value="HIJAU-STRIP"
-                                            {{ isset($participant) && $participant->sabuk === 'HIJAU-STRIP' ? 'selected' : '' }}>
+                                            {{ isset($participant) && $participant->sabuk_poomsae === 'HIJAU-STRIP' ? 'selected' : '' }}>
                                             HIJAU STRIP</option>
 
                                         <option value="BIRU"
-                                            {{ isset($participant) && $participant->sabuk === 'BIRU' ? 'selected' : '' }}>
+                                            {{ isset($participant) && $participant->sabuk_poomsae === 'BIRU' ? 'selected' : '' }}>
                                             BIRU</option>
 
                                         <option value="BIRU-STRIP"
-                                            {{ isset($participant) && $participant->sabuk === 'BIRU-STRIP' ? 'selected' : '' }}>
+                                            {{ isset($participant) && $participant->sabuk_poomsae === 'BIRU-STRIP' ? 'selected' : '' }}>
                                             BIRU STRIP</option>
 
                                         <option value="MERAH"
@@ -246,51 +247,47 @@
                             <div class="col-xl-12 div-sabuk-kyorugi">
                                 <div class="wsus__login_form_input">
                                     <label>Pilih Jenis Sabuk : </label>
-                                    <select name="sabuk" class="form-select form-select-sm select2" id="sabuk_kyorugi">
+                                    <select name="sabuk_kyorugi" class="form-select form-select-sm select2"
+                                        id="sabuk_kyorugi">
                                         <option selected value="">Pilih</option>
 
                                         <option value="PUTIH"
-                                            {{ isset($participant) && $participant->sabuk === 'PUTIH' ? 'selected' : '' }}>
+                                            {{ isset($participant) && $participant->sabuk_kyorugi === 'PUTIH' ? 'selected' : '' }}>
                                             PUTIH</option>
 
                                         <option value="KUNING"
-                                            {{ isset($participant) && $participant->sabuk === 'KUNING' ? 'selected' : '' }}>
+                                            {{ isset($participant) && $participant->sabuk_kyorugi === 'KUNING' ? 'selected' : '' }}>
                                             KUNING</option>
 
                                         <option value="KUNING-STRIP"
-                                            {{ isset($participant) && $participant->sabuk === 'KUNING-STRIP' ? 'selected' : '' }}>
+                                            {{ isset($participant) && $participant->sabuk_kyorugi === 'KUNING-STRIP' ? 'selected' : '' }}>
                                             KUNING STRIP</option>
 
                                         <option value="HIJAU"
-                                            {{ isset($participant) && $participant->sabuk === 'HIJAU' ? 'selected' : '' }}>
+                                            {{ isset($participant) && $participant->sabuk_kyorugi === 'HIJAU' ? 'selected' : '' }}>
                                             HIJAU</option>
 
                                         <option value="HIJAU-STRIP"
-                                            {{ isset($participant) && $participant->sabuk === 'HIJAU-STRIP' ? 'selected' : '' }}>
+                                            {{ isset($participant) && $participant->sabuk_kyorugi === 'HIJAU-STRIP' ? 'selected' : '' }}>
                                             HIJAU STRIP</option>
 
                                         <option value="BIRU"
-                                            {{ isset($participant) && $participant->sabuk === 'BIRU' ? 'selected' : '' }}>
+                                            {{ isset($participant) && $participant->sabuk_kyorugi === 'BIRU' ? 'selected' : '' }}>
                                             BIRU</option>
 
                                         <option value="BIRU-STRIP"
-                                            {{ isset($participant) && $participant->sabuk === 'BIRU-STRIP' ? 'selected' : '' }}>
+                                            {{ isset($participant) && $participant->sabuk_kyorugi === 'BIRU-STRIP' ? 'selected' : '' }}>
                                             BIRU STRIP</option>
 
                                         <option value="MERAH"
-                                            {{ isset($participant) && $participant->sabuk === 'MERAH' ? 'selected' : '' }}>
+                                            {{ isset($participant) && $participant->sabuk_kyorugi === 'MERAH' ? 'selected' : '' }}>
                                             MERAH</option>
                                     </select>
                                     <x-input-error :messages="$errors->get('sabuk')" class="mt-2" />
                                 </div>
                             </div>
 
-
-
                         </div>
-
-
-
 
                         <div class="col-xl-12">
                             <div class="wsus__login_form_input">
