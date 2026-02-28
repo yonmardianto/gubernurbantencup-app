@@ -645,7 +645,7 @@ $(function () {
     // };
 
     const pemulaPoomSaeGroup2 = {
-        PUTIH: "PUTIH",
+        // PUTIH: "PUTIH",
         KUNING: "KUNING",
         "KUNING-STRIP": "KUNING-STRIP",
         HIJAU: "HIJAU",
@@ -919,9 +919,9 @@ $(function () {
             .prepend(`<option selected value="">Pilih</option>`);
 
         $("#tinggi_badan").val("");
-        $("#kelompok_poomsae")
-            .empty()
-            .prepend(`<option value="" selected>Pilih</option>`);
+        // $("#kelompok_poomsae")
+        //     .empty()
+        //     .prepend(`<option value="" selected>Pilih</option>`);
         $("#sabuk_poomsae")
             .empty()
             .prepend(`<option value="" selected>Pilih</option>`);
@@ -1018,6 +1018,26 @@ $(function () {
             });
         }
     };
+
+    $("#kelompok_poomsae").on("change", function () {
+        if ($(this).val() == "Freestyle") {
+            $('#kategori_level option[value="PRACADET"]').remove();
+            // $("#kategori_level").val("CADET").trigger("change");
+            // $("#kategori_level").select2("destroy").select2();
+        } else {
+            //Reset initiate dataLevel to bind at kategori_level
+
+            $("#kategori_level")
+                .empty()
+                .prepend(`<option value="" selected>Pilih</option>`);
+            $("#kategori_level").append(
+                new Option("PRACADET", "PRACADET"),
+                new Option("CADET", "CADET"),
+                new Option("JUNIOR", "JUNIOR"),
+                new Option("SENIOR", "SENIOR"),
+            );
+        }
+    });
 
     $("#kategori_tanding").on("change", function () {
         if ($(this).val() == "POOMSAE") {
