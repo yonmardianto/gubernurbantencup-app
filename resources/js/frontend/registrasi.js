@@ -51,6 +51,18 @@ $(function () {
         MERAH: "MERAH",
     };
 
+    const prestasiKyorugiGroup2 = {
+        // PUTIH: "PUTIH",
+        KUNING: "KUNING",
+        "KUNING-STRIP": "KUNING-STRIP",
+        HIJAU: "HIJAU",
+        "HIJAU-STRIP": "HIJAU-STRIP",
+        BIRU: "BIRU",
+        "BIRU-STRIP": "BIRU-STRIP",
+        MERAH: "MERAH",
+        HITAM: "HITAM",
+    };
+
     const pemulaKyorugiUsiaPraCadet = {
         "4-5th": "4-5th",
         "6-7th": "6-7th",
@@ -485,15 +497,21 @@ $(function () {
                 .empty()
                 .prepend(`<option value="" selected>Pilih</option>`);
 
-            $.each(pemulaPoomSaeGroup2, function (index, value) {
-                $("#sabuk_kyorugi").append(
-                    `<option value=${index} >${value}</option>`,
-                );
-            });
-
             if ($("#kategori").val() == "Pemula") {
+                $.each(pemulaPoomSaeGroup2, function (index, value) {
+                    $("#sabuk_kyorugi").append(
+                        `<option value=${index} >${value}</option>`,
+                    );
+                });
+
                 $(".div-tinggi-badan").removeClass("d-none");
             } else {
+                $.each(prestasiKyorugiGroup2, function (index, value) {
+                    $("#sabuk_kyorugi").append(
+                        `<option value=${index} >${value}</option>`,
+                    );
+                });
+
                 $(".div-tinggi-badan").addClass("d-none");
                 $("#tinggi_badan").val("");
             }
