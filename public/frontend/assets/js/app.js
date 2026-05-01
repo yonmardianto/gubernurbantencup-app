@@ -1031,23 +1031,43 @@ $(function () {
         }
     };
 
-    $("#kelompok_poomsae").on("change", function () {
-        if ($(this).val() == "Freestyle") {
-            $('#kategori_level option[value="PRACADET"]').remove();
-            // $("#kategori_level").val("CADET").trigger("change");
-            // $("#kategori_level").select2("destroy").select2();
-        } else {
-            //Reset initiate dataLevel to bind at kategori_level
+    // $("#kelompok_poomsae").on("change", function () {
+    //     if ($(this).val() == "Freestyle") {
+    //         $('#kategori_level option[value="PRACADET"]').remove();
+    //         // $("#kategori_level").val("CADET").trigger("change");
+    //         // $("#kategori_level").select2("destroy").select2();
+    //     } else {
+    //         //Reset initiate dataLevel to bind at kategori_level
+    //         $("#kategori_level")
+    //             .empty()
+    //             .prepend(`<option value="" selected>Pilih</option>`);
+    //         $("#kategori_level").append(
+    //             new Option("PRACADET", "PRACADET"),
+    //             new Option("CADET", "CADET"),
+    //             new Option("JUNIOR", "JUNIOR"),
+    //             new Option("SENIOR", "SENIOR"),
+    //         );
+    //     }
+    // });
 
-            $("#kategori_level")
-                .empty()
-                .prepend(`<option value="" selected>Pilih</option>`);
-            $("#kategori_level").append(
-                new Option("PRACADET", "PRACADET"),
-                new Option("CADET", "CADET"),
-                new Option("JUNIOR", "JUNIOR"),
-                new Option("SENIOR", "SENIOR"),
-            );
+    $("#kelompok_poomsae").on("change", function () {
+        const isFreestyle = $(this).val() === "Freestyle";
+        const $level = $("#kategori_level");
+
+        if (isFreestyle) {
+            // Remove PRACADET if it exists
+            $level.find('option[value="PRACADET"]').remove();
+
+            // If PRACADET was the currently selected value, reset selection
+            if ($level.val() === null || $level.val() === "") {
+                $level.val("").trigger("change");
+            }
+        } else {
+            if ($level.find('option[value="PRACADET"]').length === 0) {
+                $level
+                    .find('option[value="CADET"]')
+                    .before(new Option("PRACADET", "PRACADET"));
+            }
         }
     });
 
