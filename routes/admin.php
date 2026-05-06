@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Admin\Auth\EmailVerificationNotificationController;
@@ -8,15 +9,15 @@ use App\Http\Controllers\Admin\Auth\NewPasswordController;
 use App\Http\Controllers\Admin\Auth\PasswordController;
 use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\Admin\ClubController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::group(['middleware'=> 'guest:admin', 'prefix'=> 'admin', 'as'=> 'admin.'], function () {
+Route::group(['middleware' => 'guest:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
@@ -36,7 +37,7 @@ Route::group(['middleware'=> 'guest:admin', 'prefix'=> 'admin', 'as'=> 'admin.']
         ->name('password.store');
 });
 
-Route::group(['middleware'=> 'auth:admin', 'prefix'=> 'admin', 'as'=> 'admin.'], function () {
+Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
 
@@ -58,25 +59,23 @@ Route::group(['middleware'=> 'auth:admin', 'prefix'=> 'admin', 'as'=> 'admin.'],
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 
-
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::resource('admins', AdminController::class);
+    Route::post('admin-data', [AdminController::class, 'getDataAdmins'])->name('admins.data');
 
     Route::resource('participants', ParticipantController::class);
     Route::post('participant-data', [ParticipantController::class, 'getDataParticipants'])->name('participants.data');
     Route::post('participants/download', [ParticipantController::class, 'downloadParticipants'])->name('participants.download');
 
-
     Route::resource('clubs', ClubController::class);
     Route::post('club-data', [ClubController::class, 'getDataClubs'])->name('clubs.data');
-
 
     Route::resource('users', UserController::class);
     Route::post('users/data', [UserController::class, 'getDataUsers'])->name('user.data');
     Route::get('users/{manager_id}/payments', [PaymentController::class, 'getUserBuktiTransfer'])->name('user.payments');
     Route::get('users/{manager_id}/participants', [ParticipantController::class, 'getUserParticipants'])->name('user.participants');
 
-
     Route::resource('settings', SettingController::class);
 
 });
-
