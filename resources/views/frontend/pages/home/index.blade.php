@@ -310,7 +310,7 @@
                 $('#no_hp').mask('62890000000000', {
                     translation: {
                         '9': {
-                            pattern: /[1-9]/
+                            pattern: /[1-79]/
                         }
                     },
                     onKeyPress: function(value, event, currentValue, selection) {
@@ -320,6 +320,8 @@
                         }
                     }
                 });
+
+
             }
 
             if (locationBox) {
