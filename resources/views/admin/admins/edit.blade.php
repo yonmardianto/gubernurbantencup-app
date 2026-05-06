@@ -51,6 +51,21 @@
                                     </div>
 
                                     <div class="col-12 mb-3">
+                                        <label class="form-label required">Role</label>
+                                        <select class="form-select @error('role') is-invalid @enderror" name="role"
+                                            required>
+                                            <option value="">-- Pilih Role --</option>
+                                            <option value="administrator"
+                                                {{ old('role', $admin->role) === 'administrator' ? 'selected' : '' }}>
+                                                Administrator</option>
+                                            <option value="admin-user"
+                                                {{ old('role', $admin->role) === 'admin-user' ? 'selected' : '' }}>Admin
+                                                User</option>
+                                        </select>
+                                        <x-input-error :messages="$errors->get('role')" class="mt-2" />
+                                    </div>
+
+                                    <div class="col-12 mb-3">
                                         <label class="form-label">Password</label>
                                         <div class="input-group input-group-flat">
                                             <input type="password"

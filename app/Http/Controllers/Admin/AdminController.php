@@ -142,6 +142,7 @@ class AdminController extends Controller
                 'id' => $admin->id,
                 'name' => $admin->name,
                 'email' => $admin->email,
+                'role' => $admin->role,
                 'created_at' => $admin->created_at->format('d-m-Y H:i'),
                 'actions' => "
                     <a href='" . route('admin.admins.edit', $admin->id) . "' class='btn btn-sm btn-primary'>

@@ -34,6 +34,7 @@ class UpdateAdminRequest extends FormRequest
                 Rule::unique(Admin::class)->ignore($this->admin->id),
             ],
             'password' => ['nullable', 'string', 'min:8'],
+            'role' => ['required', 'string', 'in:administrator,admin-user'],
         ];
     }
 
@@ -46,6 +47,7 @@ class UpdateAdminRequest extends FormRequest
             'name' => 'Nama',
             'email' => 'Email',
             'password' => 'Password',
+            'role' => 'Role',
         ];
     }
 }

@@ -117,11 +117,15 @@
                         </a>
                         <div class="dropdown-menu">
                             <div class="dropdown-menu-columns">
-                                <div class="dropdown-menu-column">
-                                    <a class="dropdown-item" href="{{ route('admin.admins.index') }}">
-                                        Admins
-                                    </a>
-                                </div>
+
+                                @if (Auth::guard('admin')->user()->role === 'administrator')
+                                    <div class="dropdown-menu-column">
+                                        <a class="dropdown-item" href="{{ route('admin.admins.index') }}">
+                                            Admins
+                                        </a>
+                                    </div>
+                                @endif
+
 
                                 <div class="dropdown-menu-column">
                                     <a class="dropdown-item" href="{{ route('admin.users.index') }}">
