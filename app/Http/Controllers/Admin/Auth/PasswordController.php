@@ -11,6 +11,14 @@ use Illuminate\Validation\Rules\Password;
 class PasswordController extends Controller
 {
     /**
+     * Show the change password form.
+     */
+    public function show()
+    {
+        return view('admin.auth.change-password');
+    }
+
+    /**
      * Update the user's password.
      */
     public function update(Request $request): RedirectResponse

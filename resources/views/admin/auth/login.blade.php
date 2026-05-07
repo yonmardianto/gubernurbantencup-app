@@ -56,9 +56,9 @@
                                 </span> --}}
                             </label>
                             <div class="input-group input-group-flat">
-                                <input type="password" name="password" class="form-control password"
+                                <input type="password" name="password" class="form-control password-login"
                                     placeholder="Your password" autocomplete="off" required>
-                                <span class="input-group-text toggle-password">
+                                <span class="input-group-text toggle-password-login" style="cursor: pointer;">
                                     <a href="javascript:;" class="link-secondary" title="Show password"
                                         data-bs-toggle="tooltip"><!-- Download SVG icon from http://tabler-icons.io/i/eye -->
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
@@ -97,6 +97,19 @@
     <!-- Tabler Core -->
     <script src="{{ asset('admin/assets/dist/js/tabler.min.js?1692870487') }}" defer></script>
     <script src="{{ asset('admin/assets/dist/js/demo.min.js?1692870487') }}" defer></script>
+    <script>
+        document
+            .querySelector(".toggle-password-login")
+            .addEventListener("click", function() {
+                const passwordField = document.querySelector(".password-login");
+
+                if (passwordField.type === "password") {
+                    passwordField.type = "text";
+                } else {
+                    passwordField.type = "password";
+                }
+            });
+    </script>
 </body>
 
 </html>

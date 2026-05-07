@@ -41,6 +41,8 @@
                    </a>
                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
 
+                       <a href="{{ route('admin.password.show') }}" class="dropdown-item">Change Password</a>
+
                        <a href="#" role="button"
                            onclick="event.preventDefault();getElementById('logout').submit();"
                            class="dropdown-item">Logout</a>
