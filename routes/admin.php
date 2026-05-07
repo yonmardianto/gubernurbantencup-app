@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\Auth\NewPasswordController;
 use App\Http\Controllers\Admin\Auth\PasswordController;
 use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
+use App\Http\Controllers\Admin\AjaxController;
 use App\Http\Controllers\Admin\ClubController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\SettingController;
@@ -80,4 +81,5 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.
 
     Route::resource('settings', SettingController::class);
 
+    Route::post('ajax/get-kelas-berat-badan', [AjaxController::class, 'getKelasBeratBadanFilter'])->name('ajax.get_kelas_berat_badan');
 });

@@ -226,25 +226,30 @@ class ParticipantController extends Controller
         $filter_data = json_decode($request->customFilter);
         $query = $query->where(function ($query) use ($filter_data) {
 
-            if (isset($filter_data->filter_nama_lengkap) && ! empty($filter_data->filter_nama_lengkap)) {
-                $query->orWhere('nama_lengkap', 'like', '%'.trim($filter_data->filter_nama_lengkap).'%');
-                $query->orWhere('club', 'like', '%'.trim($filter_data->filter_nama_lengkap).'%');
+            if (isset($filter_data->filter_nama_lengkap) && !empty($filter_data->filter_nama_lengkap)) {
+                $query->orWhere('nama_lengkap', 'like', '%' . trim($filter_data->filter_nama_lengkap) . '%');
+                $query->orWhere('club', 'like', '%' . trim($filter_data->filter_nama_lengkap) . '%');
             }
 
-            if (isset($filter_data->filter_gender) && ! empty($filter_data->filter_gender)) {
+            if (isset($filter_data->filter_gender) && !empty($filter_data->filter_gender)) {
                 $query->whereIn('gender', $filter_data->filter_gender);
             }
 
-            if (isset($filter_data->filter_kategori) && ! empty($filter_data->filter_kategori)) {
+            if (isset($filter_data->filter_kategori) && !empty($filter_data->filter_kategori)) {
                 $query->whereIn('kategori', $filter_data->filter_kategori);
             }
 
-            if (isset($filter_data->filter_level) && ! empty($filter_data->filter_level)) {
+            if (isset($filter_data->filter_level) && !empty($filter_data->filter_level)) {
                 $query->whereIn('kategori_level', $filter_data->filter_level);
             }
 
-            if (isset($filter_data->filter_kategori_tanding) && ! empty($filter_data->filter_kategori_tanding)) {
+            if (isset($filter_data->filter_kategori_tanding) && !empty($filter_data->filter_kategori_tanding)) {
                 $query->whereIn('kategori_tanding', $filter_data->filter_kategori_tanding);
+            }
+
+            if (isset($filter_data->filter_berat_badan) && !empty($filter_data->filter_berat_badan)) {
+
+                $query->where('berat_badan', $filter_data->filter_berat_badan);
             }
         });
 
@@ -273,24 +278,29 @@ class ParticipantController extends Controller
 
         $query = $query->where(function ($query) use ($request) {
 
-            if (isset($request->filter_nama_lengkap) && ! empty($request->filter_nama_lengkap)) {
-                $query->where('nama_lengkap', 'like', '%'.$filter_data->filter_nama_lengkap.'%');
+            if (isset($request->filter_nama_lengkap) && !empty($request->filter_nama_lengkap)) {
+                $query->where('nama_lengkap', 'like', '%' . $request->filter_nama_lengkap . '%');
             }
 
-            if (isset($request->filter_gender) && ! empty($request->filter_gender)) {
+            if (isset($request->filter_gender) && !empty($request->filter_gender)) {
                 $query->whereIn('gender', [$request->filter_gender]);
             }
 
-            if (isset($request->filter_kategori) && ! empty($request->filter_kategori)) {
+            if (isset($request->filter_kategori) && !empty($request->filter_kategori)) {
                 $query->whereIn('kategori', [$request->filter_kategori]);
             }
 
-            if (isset($request->filter_level) && ! empty($request->filter_level)) {
+            if (isset($request->filter_level) && !empty($request->filter_level)) {
                 $query->whereIn('kategori_level', [$request->filter_level]);
             }
 
-            if (isset($request->filter_kategori_tanding) && ! empty($request->filter_kategori_tanding)) {
+            if (isset($request->filter_kategori_tanding) && !empty($request->filter_kategori_tanding)) {
                 $query->whereIn('kategori_tanding', [$request->filter_kategori_tanding]);
+            }
+
+            if (isset($request->filter_berat_badan) && !empty($request->filter_berat_badan)) {
+                $berat_badan_arr = is_array($request->filter_berat_badan) ? $request->filter_berat_badan : [$request->filter_berat_badan];
+                $query->whereIn('berat_badan', $berat_badan_arr);
             }
         });
 
@@ -305,7 +315,7 @@ class ParticipantController extends Controller
         return (new FastExcel($participants))
             ->headerStyle($header_style)
             ->rowsStyle($rows_style)
-            ->download('peserta-'.date('YmdHis').'.xlsx', function ($item) {
+            ->download('peserta-' . date('YmdHis') . '.xlsx', function ($item) {
                 return [
                     'Nama Lengkap' => $item->nama_lengkap,
                     'Gender' => $item->gender,
