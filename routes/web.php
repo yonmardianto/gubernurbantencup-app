@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
  *-------------------------------------------------
  */
 
- Route::get('/', [FrontendController::class, 'index'])->name('home');
+Route::get('/', [FrontendController::class, 'index'])->name('home');
 
 
 
@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
  *-------------------------------------------------
  */
 
-Route::group(['middleware'=> ['auth:web', 'verified', 'check_role:manager-team'], 'prefix'=> 'manager-team', 'as'=>'manager-team.'], function(){
+Route::group(['middleware' => ['auth:web', 'verified', 'check_role:manager-team'], 'prefix' => 'manager-team', 'as' => 'manager-team.'], function () {
 
     // Route::get('/registrasi', [FrontendController::class, 'registrasi'])->name('registrasi');
     // Route::get('participants', [ParticipantController::class, 'index'])->name('participants');
@@ -35,10 +35,12 @@ Route::group(['middleware'=> ['auth:web', 'verified', 'check_role:manager-team']
 
     Route::resource('payments', PaymentController::class);
 
+    Route::post('update-club', [FrontendController::class, 'updateClub'])->name('update-club');
+
 
 });
 
 
 
-require __DIR__.'/auth.php';
-require __DIR__.'/admin.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/admin.php';

@@ -8,7 +8,13 @@
             <img src="{{ asset('default-files/avatar.png') }}" alt="profile" class="img-fluid w-100">
         </div>
         <h4>{{ auth()->user()->name }}</h4>
-        <p>{{ auth()->user()->club }} <br />Manager Team</p>
+        <p id="club-display">{{ auth()->user()->club }}</p>
+        <p>
+            Manager Team &nbsp;
+            <a href="#" id="btn-edit-club" title="Edit Nama Club" style="font-size:12px;">
+                <i class="fa fa-pencil"></i> Edit
+            </a>
+        </p>
     </div>
     <ul class="wsus__dashboard_sidebar_menu">
         <li>
@@ -45,4 +51,38 @@
             </form>
         </li>
     </ul>
+</div>
+
+<!-- Modal Edit Club -->
+<div class="modal fade" id="modalEditClub" tabindex="-1" aria-labelledby="modalEditClubLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalEditClubLabel">Edit Nama Club</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form id="form-edit-club" novalidate>
+                    @csrf
+                    <div class="mb-3">
+                        <label for="input-club" class="form-label">Nama Club <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="input-club" name="club"
+                            value="{{ auth()->user()->club }}" required maxlength="255">
+                        <div class="invalid-feedback" id="club-error"></div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-primary btn-sm" id="btn-save-club">
+                    <span id="btn-save-text" class="text-white">Simpan</span>
+                    <span id="btn-save-spinner" class="spinner-border spinner-border-sm d-none" role="status"></span>
+                </button>
+            </div>
+
+        </div>
+    </div>
 </div>

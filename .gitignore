@@ -5,6 +5,7 @@
 /public/uploads
 /storage/*.key
 /storage/pail
+/docker 
 /vendor
 .env
 .env.backup

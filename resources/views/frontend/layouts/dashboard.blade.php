@@ -7,7 +7,7 @@
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <title>
         @section('title')
-            | Gubernur Banten Cup 2026
+        | Gubernur Banten Cup 2026
         @show
     </title>
 
@@ -61,13 +61,86 @@
     @yield('footer_scripts')
 
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
 
-            window.setTimeout(function() {
-                $(".alert").fadeTo(500, 0).slideUp(500, function() {
+            window.setTimeout(function () {
+                $(".alert").fadeTo(500, 0).slideUp(500, function () {
                     $(this).remove();
                 });
             }, 4000);
+
+
+            $('#btn-edit-club').on('click', function (e) {
+                e.preventDefault();
+                resetClubForm();
+                $('#modalEditClub').modal('show');
+            });
+
+
+
+            $('#btn-save-club').on('click', function () {
+                var clubVal = $.trim($('#input-club').val());
+
+                if (!clubVal) {
+                    showClubError('Nama club wajib diisi.');
+                    return;
+                }
+
+                setLoading(true);
+
+                $.ajax({
+                    url: '{{ route("manager-team.update-club") }}',
+                    method: 'POST',
+                    data: {
+                        _token: $('input[name="_token"]').val(),
+                        club: clubVal,
+                    },
+                    success: function (res) {
+                        if (res.success) {
+                            // Update sidebar display without page reload
+                            $('#club-display').text(res.new_club);
+                            $('#modalEditClub').modal('hide');
+
+                            // Optional: show a brief toast / alert
+                            alert(res.message);
+                        }
+                    },
+                    error: function (xhr) {
+                        setLoading(false);
+                        if (xhr.status === 422) {
+                            var errors = xhr.responseJSON.errors;
+                            if (errors && errors.club) {
+                                showClubError(errors.club[0]);
+                            }
+                        } else {
+                            showClubError('Terjadi kesalahan, silakan coba lagi.');
+                        }
+                    },
+                    complete: function () {
+                        setLoading(false);
+                    }
+                });
+            });
+
+
+
+
+            function resetClubForm() {
+                $('#input-club').removeClass('is-invalid').val($('#club-display').text().trim());
+                $('#club-error').text('');
+                setLoading(false);
+            }
+
+            function setLoading(state) {
+                $('#btn-save-club').prop('disabled', state);
+                $('#btn-save-text').toggleClass('d-none', state);
+                $('#btn-save-spinner').toggleClass('d-none', !state);
+            }
+
+            function showClubError(msg) {
+                $('#input-club').addClass('is-invalid');
+                $('#club-error').text(msg);
+            }
 
 
         });
