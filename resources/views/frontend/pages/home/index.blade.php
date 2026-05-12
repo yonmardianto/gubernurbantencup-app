@@ -39,7 +39,9 @@
                 <li class="nav-item"><a href="/">Home</a></li>
                 <li class="nav-item"><a href="#gallery">Gallery</a></li>
                 <li class="nav-item"><a href="#contact">Kontak Kami</a></li>
-                <li class="nav-item"><a href="#signup-new-section" class="open-signup">Daftar</a></li>
+                @if (!$lock)
+                    <li class="nav-item"><a href="#signup-new-section" class="open-signup">Daftar</a></li>
+                @endif
                 <li class="nav-item"><a href="#login-section">Login</a></li>
             </ul>
         </div>

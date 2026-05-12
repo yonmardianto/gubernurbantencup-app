@@ -3,50 +3,48 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Traits\FileUpload;
-
-use App\Models\Participant;
-
-use Auth;
-use Redirect;
-
-
 use App\Http\Requests\UpdateClubRequest;
+use App\Models\Participant;
+use App\Models\Setting;
+use App\Traits\FileUpload;
+use Auth;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Redirect;
 
 class FrontendController extends Controller
 {
     use FileUpload;
 
-    function index()
+    public function index()
     {
-        return view('frontend.pages.home.index');
+        $lock = filter_var(Setting::where('key', 'lock application')->value('value'), FILTER_VALIDATE_BOOLEAN);
+
+        return view('frontend.pages.home.index', compact('lock'));
     }
 
-    function registrasi()
+    public function registrasi()
     {
         return view('frontend.pages.home.registrasi');
     }
 
-    function store(Request $request)
+    public function store(Request $request)
     {
 
         $user = Auth::user();
 
         $request->validate([
             'nama_lengkap' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . Participant::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.Participant::class],
             'gender' => ['required'],
             'no_hp' => ['required'],
             'club' => ['required'],
-            'kategori' => ['required']
+            'kategori' => ['required'],
         ]);
 
-
         if ($request->file('pembayaran')) {
-            $request->validate(['pembayaran' => ['mimes:jpg,jpeg,png', 'max:1024']]); //max file 1MB
+            $request->validate(['pembayaran' => ['mimes:jpg,jpeg,png', 'max:1024']]); // max file 1MB
         }
 
         $user = Participant::create([
@@ -63,9 +61,10 @@ class FrontendController extends Controller
             'kategori_usia' => $request->kategori_usia,
             'berat_badan' => $request->berat_badan,
             'pembayaran' => ($request->file('pembayaran')) ? $this->uploadFile($request->file('pembayaran'), 'uploads', 'pembayaran_') : null,
-            'manager_id' => $user->id
+            'manager_id' => $user->id,
 
         ]);
+
         return Redirect::route('manager-team.dashboard')->with('success', 'Data entry name anda berhasil disubmit');
 
     }

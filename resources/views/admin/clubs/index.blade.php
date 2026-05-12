@@ -81,7 +81,7 @@
                 $('#tbl_club').DataTable({
                     processing: true,
                     serverSide: true,
-                    pageLength: 10,
+                    pageLength: 20,
                     order: [
                         [5, 'desc']
                     ],
@@ -90,22 +90,40 @@
                         targets: [0, 1, 2, 3]
                     }, ],
                     dom: 'Bflrtip',
+                    // buttons: [{
+                    //         extend: 'excelHtml5',
+                    //         exportOptions: {
+                    //             columns: [1, 2, 3, 4, 5],
+                    //             modifier: {
+                    //                 page: 'all',
+                    //                 selected: false
+                    //             },
+                    //         },
+                    //         text: 'Download',
+                    //         filename: function() {
+                    //             return 'Daftar Club ' + new Date().toISOString().split('T')[0] +
+                    //                 '' + new Date().toTimeString().split(' ')[0].replace(/:/g, ':');
+                    //         },
+                    //     }
+
+                    // ],
+
                     buttons: [{
-                                extend: 'excelHtml5',
-                                exportOptions: {
-                                    columns: [1, 2, 3, 4, 5],
-                                    modifier: {
-                                        page: 'all',
-                                        selected: false
-                                    },
-                                },
-                                text: 'Download',
-                                filename: function() {
-                                    return 'Daftar Club ';
-                                },
+                        text: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download',
+                        className: 'btn btn-success',
+                        action: function(e, dt, node, config) {
+                            let search = $('input[type="search"]').val();
+                            let url = "{{ route('admin.clubs.export') }}";
+
+                            // Append search as query param
+                            if (search) {
+                                url += '?search=' + encodeURIComponent(search);
                             }
 
-                    ],
+                            window.location.href = url;
+                        },
+                    }],
+
                     ajax: {
                         headers: {
                             'X-CSRF-TOKEN': "{{ csrf_token() }}"
@@ -115,7 +133,7 @@
 
                         data: function(data) {
                             data.search = $('input[type="search"]')
-                        .val(); //search default from datatables
+                                .val(); //search default from datatables
                             // data.customFilter = JSON.stringify(search_filter);
 
                         }
@@ -163,22 +181,26 @@
                             searchable: false,
                             'render': function(data, type, row) {
                                 let url = "{{ route('admin.user.payments', [':id']) }}";
-                                let urlPeserta =  "{{ route('admin.user.participants', [':id']) }}";
+                                let urlPeserta = "{{ route('admin.user.participants', [':id']) }}";
 
                                 url = url.replace(':id', row.id);
                                 urlPeserta = urlPeserta.replace(':id', row.id);
 
                                 let actions = '<div class="nav-item dropdown">';
 
-                                actions += `<a class="nav-link dropdown-toggle font-bold" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">`;
+                                actions +=
+                                    `<a class="nav-link dropdown-toggle font-bold" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">`;
                                 actions += '</a>';
 
 
-                                actions += '<div class="dropdown-menu" data-popper-placement="bottom-start" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 40px, 0px);">';
-                                actions +=  `<a href=${url} class="dropdown-item" href="#"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-checklist"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9.615 20h-2.615a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8" /><path d="M14 19l2 2l4 -4" /><path d="M9 8h4" /><path d="M9 12h2" /></svg> &nbsp; Bukti Transfer </a>`;
+                                actions +=
+                                    '<div class="dropdown-menu" data-popper-placement="bottom-start" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 40px, 0px);">';
+                                actions +=
+                                    `<a href=${url} class="dropdown-item" href="#"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-checklist"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9.615 20h-2.615a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8" /><path d="M14 19l2 2l4 -4" /><path d="M9 8h4" /><path d="M9 12h2" /></svg> &nbsp; Bukti Transfer </a>`;
 
 
-                                actions +=  `<a href=${urlPeserta} class="dropdown-item" href="javascript:;"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-users-group"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1" /><path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M17 10h2a2 2 0 0 1 2 2v1" /><path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M3 13v-1a2 2 0 0 1 2 -2h2" /></svg> &nbsp; Peserta </a>`;
+                                actions +=
+                                    `<a href=${urlPeserta} class="dropdown-item" href="javascript:;"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-users-group"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1" /><path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M17 10h2a2 2 0 0 1 2 2v1" /><path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M3 13v-1a2 2 0 0 1 2 -2h2" /></svg> &nbsp; Peserta </a>`;
 
                                 actions += '</div></div>';
 

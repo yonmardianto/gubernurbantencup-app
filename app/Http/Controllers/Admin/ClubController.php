@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use OpenSpout\Common\Entity\Style\Style;
+use Rap2hpoutre\FastExcel\FastExcel;
 
 class ClubController extends Controller
 {
@@ -69,26 +71,22 @@ class ClubController extends Controller
         // Page Length
         $pageNumber = ($request->start / $request->length) + 1;
         $pageLength = $request->length;
-        $skip       = ($pageNumber - 1) * $pageLength;
-
+        $skip = ($pageNumber - 1) * $pageLength;
 
         // Page Order
         $orderColumnIndex = $request->order[0]['column'] ?? '0';
         $orderBy = $request->order[0]['dir'] ?? 'desc';
 
-
         $query = DB::table('users')->selectRaw('users.id, users.club, `name`, users.created_at,  users.no_hp, COUNT(participants.id) AS jml_peserta');
         $query->leftjoin('participants', 'users.id', 'participants.manager_id');
-
 
         // Search
         $search = $request->search;
         $query = $query->where(function ($query) use ($search) {
-            $query->orWhere('users.club', 'like', "%" . $search . "%");
-            $query->orWhere('users.name', 'like', "%" . $search . "%");
-            $query->orWhere('users.no_hp', 'like', "%" . $search . "%");
+            $query->orWhere('users.club', 'like', '%'.$search.'%');
+            $query->orWhere('users.name', 'like', '%'.$search.'%');
+            $query->orWhere('users.no_hp', 'like', '%'.$search.'%');
         });
-
 
         $orderByName = 'users.created_at';
         switch ($orderColumnIndex) {
@@ -112,6 +110,52 @@ class ClubController extends Controller
         $recordsFiltered = $recordsTotal = $query->get()->count();
         $clubs = $query->skip($skip)->take($pageLength)->get();
 
-        return response()->json(["draw" => $request->draw, "recordsTotal" => $recordsTotal, "recordsFiltered" => $recordsFiltered, 'data' => $clubs], 200);
+        return response()->json(['draw' => $request->draw, 'recordsTotal' => $recordsTotal, 'recordsFiltered' => $recordsFiltered, 'data' => $clubs], 200);
+    }
+
+    /**
+     * Export all clubs to Excel.
+     */
+    public function exportClubs(Request $request)
+    {
+
+        $search = $request->get('search');
+
+        $clubs = DB::table('users')
+            ->selectRaw('users.club, users.name, users.no_hp, COUNT(participants.id) AS jml_peserta, users.created_at')
+            ->leftJoin('participants', 'users.id', '=', 'participants.manager_id')
+            ->when($search, function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->orWhere('users.club', 'like', '%'.$search.'%')
+                        ->orWhere('users.name', 'like', '%'.$search.'%')
+                        ->orWhere('users.no_hp', 'like', '%'.$search.'%');
+                });
+            })
+            ->groupBy('users.id', 'users.club', 'users.name', 'users.no_hp', 'users.created_at')
+            ->orderBy('users.club', 'asc')
+            ->get()
+            ->map(function ($row) {
+                return [
+                    'Nama Club Team' => $row->club,
+                    'Manager Team' => $row->name,
+                    'No Hp' => $row->no_hp,
+                    'Jumlah Peserta' => $row->jml_peserta,
+                    'Created At' => $row->created_at,
+                ];
+            });
+
+        $filename = 'Daftar_Club_'.now()->format('Y-m-d_H-i-s').'.xlsx';
+
+        $header_style = (new Style)
+            ->setFontBold()
+            ->setBackgroundColor('EDEDED');
+
+        $rows_style = (new Style)
+            ->setFontSize(12);
+
+        return (new FastExcel($clubs))
+            ->headerStyle($header_style)
+            ->rowsStyle($rows_style)
+            ->download($filename);
     }
 }

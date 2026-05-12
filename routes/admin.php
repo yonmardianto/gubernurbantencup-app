@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AjaxController;
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Admin\Auth\EmailVerificationNotificationController;
@@ -9,7 +10,6 @@ use App\Http\Controllers\Admin\Auth\NewPasswordController;
 use App\Http\Controllers\Admin\Auth\PasswordController;
 use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
-use App\Http\Controllers\Admin\AjaxController;
 use App\Http\Controllers\Admin\ClubController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\SettingController;
@@ -70,6 +70,8 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.
     Route::resource('participants', ParticipantController::class);
     Route::post('participant-data', [ParticipantController::class, 'getDataParticipants'])->name('participants.data');
     Route::post('participants/download', [ParticipantController::class, 'downloadParticipants'])->name('participants.download');
+
+    Route::get('clubs/export', [ClubController::class, 'exportClubs'])->name('clubs.export');
 
     Route::resource('clubs', ClubController::class);
     Route::post('club-data', [ClubController::class, 'getDataClubs'])->name('clubs.data');
