@@ -78,6 +78,9 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.
 
     Route::resource('users', UserController::class);
     Route::post('users/data', [UserController::class, 'getDataUsers'])->name('user.data');
+    Route::post('users/deleted-data', [UserController::class, 'getDataDeletedUsers'])->name('user.deleted.data');
+    Route::post('users/{id}/restore', [UserController::class, 'restoreUser'])->name('user.restore');
+    Route::delete('users/{id}/force-delete', [UserController::class, 'forceDeleteUser'])->name('user.force-delete');
     Route::get('users/{manager_id}/payments', [PaymentController::class, 'getUserBuktiTransfer'])->name('user.payments');
     Route::get('users/{manager_id}/participants', [ParticipantController::class, 'getUserParticipants'])->name('user.participants');
 

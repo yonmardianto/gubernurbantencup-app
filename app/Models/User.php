@@ -4,13 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -24,7 +25,7 @@ class User extends Authenticatable
         'club',
         'password',
         'role',
-        'approve_status'
+        'approve_status',
     ];
 
     /**
@@ -50,15 +51,40 @@ class User extends Authenticatable
         ];
     }
 
-    public function documents(){
+    // public function getAuthPassword()
+    // {
+    //     return $this->password;
+    // }
+
+    // /**
+    //  * Find a user instance by email for authentication.
+    //  * Explicitly excludes soft-deleted users.
+    //  */
+    // public function findForPassport($username)
+    // {
+    //     return $this->where('email', $username)->whereNull('deleted_at')->first();
+    // }
+
+    // /**
+    //  * Override resolveAuthenticateUsingPassword to prevent soft-deleted users from logging in.
+    //  */
+    // public function resolveAuthenticateUsingPassword($plain)
+    // {
+    //     return password_verify($plain, $this->getAuthPassword()) ?: null;
+    // }
+
+    public function documents()
+    {
         return $this->morphMany(Document::class, 'documentable');
     }
 
-    public function payments(){
+    public function payments()
+    {
         return $this->hasMany(Payment::class);
     }
 
-    public function participants(){
+    public function participants()
+    {
         return $this->hasMany(Participant::class);
     }
 }

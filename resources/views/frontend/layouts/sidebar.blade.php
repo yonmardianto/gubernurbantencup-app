@@ -11,9 +11,11 @@
         <p id="club-display">{{ auth()->user()->club }}</p>
         <p>
             Manager Team &nbsp;
-            <a href="#" id="btn-edit-club" title="Edit Nama Club" style="font-size:12px;">
-                <i class="fa fa-pencil"></i> Edit
-            </a>
+            @if (!$lock)
+                <a href="#" id="btn-edit-club" title="Edit Nama Club" style="font-size:12px;">
+                    <i class="fa fa-pencil"></i> Edit
+                </a>
+            @endif
         </p>
     </div>
     <ul class="wsus__dashboard_sidebar_menu">
