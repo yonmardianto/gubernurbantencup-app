@@ -75,6 +75,62 @@ class UserController extends Controller
 
     }
 
+    public function lock(Request $request, string $id)
+    {
+        try {
+            $user = User::findOrFail($id);
+            $user->manual_unlock = false;
+            $user->update();
+
+            Log::info('User has been locked', [
+                'user_name' => $user->name,
+                'user_email' => $user->email,
+                'club' => $user->club,
+                'updated_by_name' => auth()->user()->name,
+                'ip' => $request->ip(),
+                'at' => now()->toDateTimeString(),
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'User has been locked successfully',
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to lock user: '.$e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function unlock(Request $request, string $id)
+    {
+        try {
+            $user = User::findOrFail($id);
+            $user->manual_unlock = true;
+            $user->update();
+
+            Log::info('User has been unlocked', [
+                'user_name' => $user->name,
+                'user_email' => $user->email,
+                'club' => $user->club,
+                'updated_by_name' => auth()->user()->name,
+                'ip' => $request->ip(),
+                'at' => now()->toDateTimeString(),
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'User has been unlocked successfully',
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to unlock user: '.$e->getMessage(),
+            ], 500);
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      */
@@ -139,7 +195,7 @@ class UserController extends Controller
         $orderBy = $request->order[0]['dir'] ?? 'desc';
 
         $query = DB::table('users')
-            ->select('id', 'name', 'email', 'no_hp', 'club', 'created_at')
+            ->select('id', 'name', 'email', 'no_hp', 'club', 'manual_unlock', 'created_at')
             ->whereNull('deleted_at'); // excludes soft-deleted users;
 
         // Search

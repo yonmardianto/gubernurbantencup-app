@@ -110,6 +110,33 @@
 
     </div>
 
+    <!-- User Action  Modal -->
+    <div class="modal modal-blur fade" id="userActionModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-status" id="modalStatus"></div>
+                <div class="modal-body text-center py-4">
+                    <svg id="modalIcon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                        <path d="M6 21v-2a4 4 0 0 1 4 -4h4" />
+                        <path d="M19 19m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+                        <path d="M17 21l4 -4" />
+                    </svg>
+                    <h3 id="modalTitle"></h3>
+                    <div class="text-muted" id="modalDescription"></div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">Cancel</a>
+                    <button type="button" class="btn" id="confirmActionBtn"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Delete User Modal -->
     <div class="modal modal-blur fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
@@ -117,9 +144,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 <div class="modal-status bg-danger"></div>
                 <div class="modal-body text-center py-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="icon mb-2 text-danger">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="icon mb-2 text-danger">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                         <path d="M4 7l16 0" />
                         <path d="M10 11l0 6" />
@@ -269,6 +296,17 @@
                                     `<a href=${url} class="dropdown-item" href="#"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-key"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16.555 3.843l3.602 3.602a2.877 2.877 0 0 1 0 4.069l-2.643 2.643a2.877 2.877 0 0 1 -4.069 0l-.301 -.301l-6.558 6.558a2 2 0 0 1 -1.239 .578l-.175 .008h-1.172a1 1 0 0 1 -.993 -.883l-.007 -.117v-1.172a2 2 0 0 1 .467 -1.284l.119 -.13l.414 -.414h2v-2h2v-2l2.144 -2.144l-.301 -.301a2.877 2.877 0 0 1 0 -4.069l2.643 -2.643a2.877 2.877 0 0 1 4.069 0z" /><path d="M15 9h.01" /></svg> &nbsp; Change Password </a>`;
                                 actions +=
                                     `<button type="button" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#deleteUserModal" data-user-id="${row.id}" data-user-name="${row.name}"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v1" /></svg> &nbsp; Archieve </button>`;
+
+                                if (row.manual_unlock) {
+                                    actions +=
+                                        `<button type="button" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#userActionModal" data-user-id="${row.id}" data-user-name="${row.name}" data-user-club="${row.club}" data-action="lock"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-user-cancel"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4" /><path d="M19 19m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M17 21l4 -4" /></svg> &nbsp; Lock </button>`;
+
+                                } else {
+                                    actions +=
+                                        `<button type="button" class="dropdown-item text-success" data-bs-toggle="modal" data-bs-target="#userActionModal" data-user-id="${row.id}" data-user-name="${row.name}" data-user-club="${row.club}" data-action="unlock"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-user-check"><path stroke="none" d="M0 0h24v24H0z"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4" /><path d="M15 19l2 2l4 -4" /></svg> &nbsp; Unlock </button>`;
+
+                                }
+
                                 actions += '</div></div>';
                                 return actions;
                             }
@@ -397,6 +435,93 @@
                 userToDeleteId = button.data('user-id');
                 userToDeleteName = button.data('user-name');
                 $('#deleteUserName').text(userToDeleteName);
+            });
+
+
+            let targetUserId = null;
+            let targetAction = null; // 'lock' or 'unlock'
+
+            $('#userActionModal').on('show.bs.modal', function(e) {
+                const button = $(e.relatedTarget);
+                targetUserId = button.data('user-id');
+                targetAction = button.data('action'); // 'lock' or 'unlock'
+
+                const isLock = targetAction === 'lock';
+
+                // Update modal content dynamically
+                $('#modalTitle').text(isLock ? 'Lock User?' : 'Unlock User?');
+                $('#modalIcon').attr('class', `icon mb-2 ${isLock ? 'text-danger' : 'text-success'}`);
+                $('#modalStatus').attr('class', `modal-status ${isLock ? 'bg-danger' : 'bg-success'}`);
+                $('#modalDescription').html(
+                    `You are about to ${isLock ? 'lock' : 'unlock'} <strong>${button.data('user-name')}</strong>. <br />Club <strong>${button.data('user-club')}</strong>`
+                );
+                $('#confirmActionBtn')
+                    .text(isLock ? 'Lock' : 'Unlock')
+                    .attr('class', `btn ${isLock ? 'btn-danger' : 'btn-success'}`);
+            });
+
+
+            $('#confirmActionBtn').on('click', function() {
+                if (!targetUserId || !targetAction) return;
+
+                const url = targetAction === 'lock' ?
+                    "{{ route('admin.user.lock', [':id']) }}".replace(':id', targetUserId) :
+                    "{{ route('admin.user.unlock', [':id']) }}".replace(':id', targetUserId);
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                        'Content-Type': 'application/json'
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            bootstrap.Modal.getInstance(document.getElementById(
+                                'userActionModal')).hide();
+                            showAlert('Success', response.message, 'success');
+                            setTimeout(() => $('#tbl_users').DataTable().ajax.reload(), 1000);
+                        }
+                    },
+                    error: function(xhr) {
+                        const response = xhr.responseJSON || {};
+                        showAlert('Error', response.message || `Failed to ${targetAction} user`,
+                            'error');
+                    }
+                });
+            });
+
+
+
+            $('#confirmUnlockBtn').on('click', function() {
+                if (!userToUnlockId) return;
+
+                const url = "{{ route('admin.user.unlock', [':id']) }}".replace(':id', userToUnlockId);
+                const token = "{{ csrf_token() }}";
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': token,
+                        'Content-Type': 'application/json'
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            bootstrap.Modal.getInstance(document.getElementById(
+                                'unlockUserModal')).hide();
+                            showAlert('Success', response.message, 'success');
+                            setTimeout(() => {
+                                $('#tbl_users').DataTable().ajax.reload();
+                            }, 1000);
+                        }
+                    },
+                    error: function(xhr) {
+                        const response = xhr.responseJSON || {};
+                        showAlert('Error', response.message || 'Failed to unlock user',
+                            'error');
+                    }
+                });
             });
 
             $('#confirmDeleteBtn').on('click', function() {

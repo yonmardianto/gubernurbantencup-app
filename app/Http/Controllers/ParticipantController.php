@@ -34,6 +34,10 @@ class ParticipantController extends Controller
 
             $lock = filter_var(Setting::where('key', 'lock application')->value('value'), FILTER_VALIDATE_BOOLEAN);
 
+            if ($user->manual_unlock) {
+                $lock = false;
+            }
+
             return view('frontend.manager-dashboard.participants.index', compact('participants', 'lock'));
         }
     }

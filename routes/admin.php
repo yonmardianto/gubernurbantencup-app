@@ -78,6 +78,8 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.
 
     Route::resource('users', UserController::class);
     Route::post('users/data', [UserController::class, 'getDataUsers'])->name('user.data');
+    Route::post('users/unlock/{id}', [UserController::class, 'unlock'])->name('user.unlock');
+    Route::post('users/lock/{id}', [UserController::class, 'lock'])->name('user.lock');
     Route::post('users/deleted-data', [UserController::class, 'getDataDeletedUsers'])->name('user.deleted.data');
     Route::post('users/{id}/restore', [UserController::class, 'restoreUser'])->name('user.restore');
     Route::delete('users/{id}/force-delete', [UserController::class, 'forceDeleteUser'])->name('user.force-delete');
