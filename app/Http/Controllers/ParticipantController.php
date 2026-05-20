@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Participant;
-use App\Models\Setting;
 use App\Models\User;
 use App\Traits\FileUpload;
 use Auth;
@@ -31,12 +30,7 @@ class ParticipantController extends Controller
             return view('admin.participants.index', compact('participants'));
         } else {
             $participants = Participant::where('manager_id', $user->id)->orderby('created_at', 'desc')->get();
-
-            $lock = filter_var(Setting::where('key', 'lock application')->value('value'), FILTER_VALIDATE_BOOLEAN);
-
-            if ($user->manual_unlock) {
-                $lock = false;
-            }
+            $lock = $user->isApplicationLocked();
 
             return view('frontend.manager-dashboard.participants.index', compact('participants', 'lock'));
         }
@@ -114,8 +108,13 @@ class ParticipantController extends Controller
         $participant = Participant::findOrFail($id);
         $documents = $participant->documents()->get();
 
+        $user = Auth::user();
+
+        $lock = $user->isApplicationLocked();
+        $kelas = $participant->getKelas($participant->kategori, $participant->kategori_level, $participant->kategori_tanding, $participant->gender);
+
         // dd($participant->documents()->get());
-        return view('frontend.manager-dashboard.participants.edit', compact('participant', 'documents'));
+        return view('frontend.manager-dashboard.participants.edit', compact('participant', 'documents', 'lock', 'kelas'));
     }
 
     /**

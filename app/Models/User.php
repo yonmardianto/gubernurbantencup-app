@@ -52,28 +52,6 @@ class User extends Authenticatable
         ];
     }
 
-    // public function getAuthPassword()
-    // {
-    //     return $this->password;
-    // }
-
-    // /**
-    //  * Find a user instance by email for authentication.
-    //  * Explicitly excludes soft-deleted users.
-    //  */
-    // public function findForPassport($username)
-    // {
-    //     return $this->where('email', $username)->whereNull('deleted_at')->first();
-    // }
-
-    // /**
-    //  * Override resolveAuthenticateUsingPassword to prevent soft-deleted users from logging in.
-    //  */
-    // public function resolveAuthenticateUsingPassword($plain)
-    // {
-    //     return password_verify($plain, $this->getAuthPassword()) ?: null;
-    // }
-
     public function documents()
     {
         return $this->morphMany(Document::class, 'documentable');
@@ -87,5 +65,16 @@ class User extends Authenticatable
     public function participants()
     {
         return $this->hasMany(Participant::class);
+    }
+
+    public function isApplicationLocked(): bool
+    {
+        $globalLock = filter_var(
+            cache()->remember('setting.lock_application', 300, fn () => Setting::where('key', 'lock application')->value('value')
+            ),
+            FILTER_VALIDATE_BOOLEAN
+        );
+
+        return $globalLock && ! $this->manual_unlock;
     }
 }

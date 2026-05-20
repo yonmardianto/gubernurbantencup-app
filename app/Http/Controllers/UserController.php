@@ -75,14 +75,21 @@ class UserController extends Controller
 
     }
 
-    public function lock(Request $request, string $id)
+    public function updateLockStatus(Request $request, string $id)
     {
         try {
+            $request->validate([
+                'locked' => 'required|boolean',
+            ]);
+
             $user = User::findOrFail($id);
-            $user->manual_unlock = false;
+            $user->manual_unlock = !$request->locked;
             $user->update();
 
-            Log::info('User has been locked', [
+            $isLocked = $request->locked;
+            $message = $isLocked ? 'User has been locked' : 'User has been unlocked';
+
+            Log::info($message, [
                 'user_name' => $user->name,
                 'user_email' => $user->email,
                 'club' => $user->club,
@@ -93,40 +100,12 @@ class UserController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'User has been locked successfully',
+                'message' => $message . ' successfully',
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to lock user: '.$e->getMessage(),
-            ], 500);
-        }
-    }
-
-    public function unlock(Request $request, string $id)
-    {
-        try {
-            $user = User::findOrFail($id);
-            $user->manual_unlock = true;
-            $user->update();
-
-            Log::info('User has been unlocked', [
-                'user_name' => $user->name,
-                'user_email' => $user->email,
-                'club' => $user->club,
-                'updated_by_name' => auth()->user()->name,
-                'ip' => $request->ip(),
-                'at' => now()->toDateTimeString(),
-            ]);
-
-            return response()->json([
-                'success' => true,
-                'message' => 'User has been unlocked successfully',
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to unlock user: '.$e->getMessage(),
+                'message' => 'Failed to update user lock status: '.$e->getMessage(),
             ], 500);
         }
     }

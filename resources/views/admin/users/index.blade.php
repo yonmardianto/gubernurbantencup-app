@@ -464,9 +464,8 @@
             $('#confirmActionBtn').on('click', function() {
                 if (!targetUserId || !targetAction) return;
 
-                const url = targetAction === 'lock' ?
-                    "{{ route('admin.user.lock', [':id']) }}".replace(':id', targetUserId) :
-                    "{{ route('admin.user.unlock', [':id']) }}".replace(':id', targetUserId);
+                const url = "{{ route('admin.user.lock-status', [':id']) }}".replace(':id', targetUserId);
+                const isLocked = targetAction === 'lock';
 
                 $.ajax({
                     url: url,
@@ -475,6 +474,9 @@
                         'X-CSRF-TOKEN': "{{ csrf_token() }}",
                         'Content-Type': 'application/json'
                     },
+                    data: JSON.stringify({
+                        locked: isLocked
+                    }),
                     success: function(response) {
                         if (response.success) {
                             bootstrap.Modal.getInstance(document.getElementById(
@@ -491,38 +493,6 @@
                 });
             });
 
-
-
-            $('#confirmUnlockBtn').on('click', function() {
-                if (!userToUnlockId) return;
-
-                const url = "{{ route('admin.user.unlock', [':id']) }}".replace(':id', userToUnlockId);
-                const token = "{{ csrf_token() }}";
-
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': token,
-                        'Content-Type': 'application/json'
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            bootstrap.Modal.getInstance(document.getElementById(
-                                'unlockUserModal')).hide();
-                            showAlert('Success', response.message, 'success');
-                            setTimeout(() => {
-                                $('#tbl_users').DataTable().ajax.reload();
-                            }, 1000);
-                        }
-                    },
-                    error: function(xhr) {
-                        const response = xhr.responseJSON || {};
-                        showAlert('Error', response.message || 'Failed to unlock user',
-                            'error');
-                    }
-                });
-            });
 
             $('#confirmDeleteBtn').on('click', function() {
                 if (!userToDeleteId) return;

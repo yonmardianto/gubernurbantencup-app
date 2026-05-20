@@ -12,7 +12,8 @@
 
 @section('content')
     <form name="form-daftar" method="post" enctype="multipart/form-data"
-        action="{{ route('manager-team.participants.update', $participant->id) }}">
+        action="{{ route('manager-team.participants.update', $participant->id) }}"
+        data-participant-id="{{ $participant->id }}">
         @csrf
         @method('PUT')
         <div class="row">
@@ -225,8 +226,14 @@
                                     <label for="berat_badan"> Berat Badan (Kg)</label>
                                     <select name="berat_badan" class="form-select form-select-sm select2"
                                         id="berat_badan">
-                                        <option value="{{ $participant->berat_badan }}" selected>
-                                            {{ $participant->berat_badan }}</option>
+                                        <option value="">Pilih</option>
+                                        @forelse ($kelas as $option)
+                                            <option value="{{ $option->value }}" @selected($participant->berat_badan === $option->value)>
+                                                {{ $option->name }}
+                                            </option>
+                                        @empty
+                                            <option value="" disabled>Tidak ada data kelas tersedia</option>
+                                        @endforelse
                                     </select>
                                     <x-input-error :messages="$errors->get('berat_badan')" class="mt-2" />
                                 </div>
