@@ -11,7 +11,6 @@ class AjaxController extends Controller
     /**
      * Return weight class options filtered by upstream filter params.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function getKelasBeratBadanFilter(Request $request)
@@ -45,10 +44,10 @@ class AjaxController extends Controller
         $kategoriTandingPlaceholders = implode(',', array_fill(0, count($kategoriTandingArr), '?'));
 
         $sql = "
-            SELECT 
-                CONCAT(gender, '-', kategori, '-', `level`, '-', weight) AS `name`, 
+            SELECT
+                CONCAT(gender, '-', kategori, '-', `level`, '-', weight) AS `name`,
                 weight AS `value`
-            FROM kelas 
+            FROM kelas
             WHERE kategori_tanding IN ({$kategoriTandingPlaceholders})
               AND gender           IN ({$genderPlaceholders})
               AND kategori         IN ({$kategoriPlaceholders})
@@ -66,6 +65,52 @@ class AjaxController extends Controller
         $results = DB::select($sql, $bindings);
 
         // 5. Return [{name, value}, ...]
+        return response()->json($results, 200);
+    }
+
+    public function getKelompokFilter(Request $request)
+    {
+        $kategori = $request->input('filter_kategori');
+        $tanding = $request->input('filter_kategori_tanding');
+
+        if (empty($kategori) || empty($tanding)) {
+            return response()->json([], 200);
+        }
+
+        $sql = '
+            SELECT
+              kelompok AS `name`, kelompok  AS `value`
+            FROM kelompok
+            WHERE kategori = ?
+              AND kategori_tanding = ?
+            ORDER BY id ASC
+        ';
+
+        $results = DB::select($sql, [$kategori, $tanding]);
+
+        return response()->json($results, 200);
+    }
+
+    public function getSabukFilter(Request $request)
+    {
+        $kategori = $request->input('filter_kategori');
+        $tanding = $request->input('filter_kategori_tanding');
+
+        if (empty($kategori) || empty($tanding)) {
+            return response()->json([], 200);
+        }
+
+        $sql = '
+            SELECT
+              sabuk AS `name`, sabuk  AS `value`
+            FROM sabuk
+            WHERE kategori = ?
+              AND kategori_tanding = ?
+            ORDER BY id ASC
+        ';
+
+        $results = DB::select($sql, [$kategori, $tanding]);
+
         return response()->json($results, 200);
     }
 }

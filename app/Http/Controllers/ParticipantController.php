@@ -107,14 +107,22 @@ class ParticipantController extends Controller
     {
         $participant = Participant::findOrFail($id);
         $documents = $participant->documents()->get();
+        $kelas = $participant->getKelas($participant->kategori, $participant->kategori_level, $participant->kategori_tanding, $participant->gender);
 
         $user = Auth::user();
 
-        $lock = $user->isApplicationLocked();
-        $kelas = $participant->getKelas($participant->kategori, $participant->kategori_level, $participant->kategori_tanding, $participant->gender);
+        if (Auth::guard('admin')->check()) {
 
-        // dd($participant->documents()->get());
-        return view('frontend.manager-dashboard.participants.edit', compact('participant', 'documents', 'lock', 'kelas'));
+            $sabuk = $participant->getSabuk($participant->kategori, $participant->kategori_tanding);
+            $kelompok = $participant->getKelompok($participant->kategori, $participant->kategori_tanding);
+
+            return view('admin.participants.edit', compact('participant', 'documents', 'kelas', 'sabuk', 'kelompok'));
+        } else {
+            $lock = $user->isApplicationLocked();
+
+            return view('frontend.manager-dashboard.participants.edit', compact('participant', 'documents', 'lock', 'kelas'));
+        }
+
     }
 
     /**
@@ -124,54 +132,88 @@ class ParticipantController extends Controller
     {
         $user = Auth::user();
 
-        $request->validate([
-            'nama_lengkap' => ['required', 'string', 'max:255'],
-            'tgl_lahir' => ['required'],
-            'gender' => ['required'],
-            'club' => ['required'],
-            'kategori' => ['required'],
-        ]);
+        if (Auth::guard('admin')->check()) {
 
-        if ($request->file('foto')) {
-            $request->validate(['foto' => ['mimes:jpg,jpeg,png', 'max:1024']]); // max file 1MB
-        }
+            $request->validate([
+                'nama_lengkap' => ['required', 'string', 'max:255'],
+                'tgl_lahir' => ['required'],
+                'gender' => ['required'],
+                'kategori' => ['required'],
+            ]);
 
-        $participant = Participant::findOrFail($id);
-        $participant->nama_lengkap = $request->nama_lengkap;
-        $participant->tgl_lahir = date('Y-m-d', strtotime($request->tgl_lahir));
-        $participant->gender = $request->gender;
-        $participant->club = $request->club;
-        $participant->kategori = $request->kategori;
-        $participant->kategori_level = $request->kategori_level;
-        $participant->kategori_tanding = $request->kategori_tanding;
-        $participant->kelompok_poomsae = $request->kelompok_poomsae;
-        $participant->sabuk_poomsae = $request->sabuk_poomsae ?? null;
-        $participant->sabuk_kyorugi = $request->sabuk_kyorugi ?? null;
-        // $participant->kategori_usia = $request->kategori_usia;
-        $participant->berat_badan = $request->berat_badan ?? null;
-        $participant->tinggi_badan = $request->tinggi_badan ?? null;
-        $participant->manager_id = $user->id;
-        $participant->update();
+            // Admin Update Participant
+            $participant = Participant::findOrFail($id);
+            $participant->nama_lengkap = $request->nama_lengkap;
+            $participant->tgl_lahir = date('Y-m-d', strtotime($request->tgl_lahir));
+            $participant->gender = $request->gender;
 
-        if ($request->file('foto')) {
+            $participant->kategori = $request->kategori;
+            $participant->kategori_level = $request->kategori_level;
+            $participant->kategori_tanding = $request->kategori_tanding;
+            $participant->kelompok_poomsae = $request->kelompok_poomsae;
 
-            // Check exist foto ? delete it
-            $documents = $participant->documents()->get();
-            if (count($documents) > 0) {
-                foreach ($documents as $item) {
-                    // delete storage
-                    $this->removeFile($item->path);
-                }
+            $participant->sabuk_poomsae = $request->sabuk_poomsae ?? null;
+            $participant->sabuk_kyorugi = $request->sabuk_kyorugi ?? null;
+
+            $participant->berat_badan = $request->berat_badan ?? null;
+            $participant->tinggi_badan = $request->tinggi_badan ?? null;
+            $participant->update();
+
+            return Redirect::route('admin.participants.edit', $participant->id)->with('success', 'Data Peserta berhasil diupdate');
+
+        } else {
+
+            $request->validate([
+                'nama_lengkap' => ['required', 'string', 'max:255'],
+                'tgl_lahir' => ['required'],
+                'gender' => ['required'],
+                'club' => ['required'],
+                'kategori' => ['required'],
+            ]);
+
+            // Manager Team Update Participant
+            if ($request->file('foto')) {
+                $request->validate(['foto' => ['mimes:jpg,jpeg,png', 'max:1024']]); // max file 1MB
             }
 
-            // delete file on documents table
-            $participant->documents()->delete();
+            $participant = Participant::findOrFail($id);
+            $participant->nama_lengkap = $request->nama_lengkap;
+            $participant->tgl_lahir = date('Y-m-d', strtotime($request->tgl_lahir));
+            $participant->gender = $request->gender;
+            $participant->club = $request->club;
+            $participant->kategori = $request->kategori;
+            $participant->kategori_level = $request->kategori_level;
+            $participant->kategori_tanding = $request->kategori_tanding;
+            $participant->kelompok_poomsae = $request->kelompok_poomsae;
+            $participant->sabuk_poomsae = $request->sabuk_poomsae ?? null;
+            $participant->sabuk_kyorugi = $request->sabuk_kyorugi ?? null;
+            // $participant->kategori_usia = $request->kategori_usia;
+            $participant->berat_badan = $request->berat_badan ?? null;
+            $participant->tinggi_badan = $request->tinggi_badan ?? null;
+            $participant->manager_id = $user->id;
+            $participant->update();
 
-            // Upload new foto
-            $this->uploadFile($request->file('foto'), 'foto-peserta', 'foto_', $participant);
+            if ($request->file('foto')) {
+
+                // Check exist foto ? delete it
+                $documents = $participant->documents()->get();
+                if (count($documents) > 0) {
+                    foreach ($documents as $item) {
+                        // delete storage
+                        $this->removeFile($item->path);
+                    }
+                }
+
+                // delete file on documents table
+                $participant->documents()->delete();
+
+                // Upload new foto
+                $this->uploadFile($request->file('foto'), 'foto-peserta', 'foto_', $participant);
+            }
+
+            return Redirect::route('manager-team.participants.index')->with('success', 'Data entry name anda berhasil diupdate');
         }
 
-        return Redirect::route('manager-team.participants.index')->with('success', 'Data entry name anda berhasil diupdate');
     }
 
     /**

@@ -13,6 +13,7 @@
     <meta name="csrf_token" content="{{ csrf_token() }}">
     <!-- CSS files -->
     <link href="{{ asset('admin/assets/dist/css/tabler.min.css?1692870487') }}" rel="stylesheet" />
+
     @yield('header_styles')
 </head>
 

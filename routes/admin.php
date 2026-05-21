@@ -88,4 +88,7 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.
     Route::resource('settings', SettingController::class);
 
     Route::post('ajax/get-kelas-berat-badan', [AjaxController::class, 'getKelasBeratBadanFilter'])->name('ajax.get_kelas_berat_badan');
+    Route::post('ajax/get-kelompok', [AjaxController::class, 'getKelompokFilter'])->name('ajax.get_kelompok');
+    Route::post('ajax/get-sabuk', [AjaxController::class, 'getSabukFilter'])->name('ajax.get_sabuk');
+
 });
