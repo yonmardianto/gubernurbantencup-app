@@ -370,6 +370,7 @@ class ParticipantController extends Controller
                     'Kategori Tanding' => $item->kategori_tanding,
                     'Keterangan' => $item->kategori_tanding === 'KYORUGI' ? $item->berat_badan : $item->kelompok_poomsae,
                     'Tinggi Badan (cm)' => $item->tinggi_badan ?? '-',
+                    'Sabuk' => $item->kategori_tanding === 'KYORUGI' ? ($item->sabuk_kyorugi ?? '-') : ($item->sabuk_poomsae ?? '-'),
                     'Club/Team' => $item->club,
                 ];
             });

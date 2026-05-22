@@ -33,6 +33,7 @@
                                     @endif
 
                                     <th style="font-size: 11px;">Keterangan</th>
+                                    <th style="font-size: 11px;">Sabuk</th>
                                     <th style="font-size: 11px;" data-col="created">Created</th>
                                     <th style="font-size: 11px;">Action</th>
                                 </tr>
@@ -52,6 +53,13 @@
                                         @endif
                                         <td style="font-size: 11px;">
                                             {{ $item->kategori_tanding === 'KYORUGI' ? $item->berat_badan : $item->kelompok_poomsae }}
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            @if ($item->kategori_tanding === 'KYORUGI')
+                                                {{ $item->sabuk_kyorugi ? $item->sabuk_kyorugi : '-' }}
+                                            @else
+                                                {{ $item->sabuk_poomsae ? $item->sabuk_poomsae : '-' }}
+                                            @endif
                                         </td>
                                         <td style="font-size: 11px;">{{ $item->created_at }}</td>
                                         <td style="font-size: 11px;">
@@ -122,7 +130,7 @@
                                 },
                                 text: 'Download',
                                 filename: function() {
-                                    return 'Daftar Peserta ';
+                                    return 'daftar-peserta-' + new Date().toISOString().slice(0, 10);
                                 },
                             }
 

@@ -165,6 +165,7 @@
                                             <th>Kategori Tanding</th>
                                             <th>Keterangan</th>
                                             <th>Tinggi Badan (cm)</th>
+                                            <th>Sabuk</th>
                                             <th>Club/Team</th>
                                             <th>Created At</th>
                                             <th>Action</th>
@@ -313,6 +314,19 @@
                         },
 
                         {
+                            data: 'keterangan',
+                            name: 'sabuk',
+                            orderable: false,
+                            'render': function(data, type, row) {
+                                if (row['kategori_tanding'] === 'KYORUGI') {
+                                    return row.sabuk_kyorugi ? row.sabuk_kyorugi : '-';
+                                } else {
+                                    return row.sabuk_poomsae ? row.sabuk_poomsae : '-';
+                                }
+                            }
+                        },
+
+                        {
                             data: 'club',
                             name: 'club',
                             orderable: false
@@ -330,7 +344,7 @@
                             'render': function(data, type, row) {
                                 let url = "{{ route('admin.participants.show', [':id']) }}";
                                 let urlEdit = "{{ route('admin.participants.edit', [':id']) }}";
-                                
+
                                 urlEdit = urlEdit.replace(':id', row.id);
                                 url = url.replace(':id', row.id);
 
